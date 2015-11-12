@@ -24,13 +24,18 @@ function sendFile(file, res) {
 
 	file.pipe(res);
 
-	res.setHeader("Set-Cookie", ["type=ninja", "language=javascript"]);
+	//res.setHeader("Set-Cookie", ["type=ninja", "language=javascript"]);
 
 	//file.pipe(process.stdout); // see in console
 	file.on('error', function (err) {
 		res.statusCode = 404;
 		res.end('Not found - 404');
 		console.error(err);
+	});
+
+	// detect when user close page until data was received
+	res.on('close', function () {
+		file.destroy();
 	});
 
 	// normal behavior for file stream - open and close
@@ -52,10 +57,6 @@ function sendFile(file, res) {
 		});
 */
 
-	// detect when user close page until data was received
-	res.on('close', function () {
-		file.destroy();
-	});
 
 }
 
