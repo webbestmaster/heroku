@@ -1,6 +1,8 @@
 var http = require('http');
 var fs = require('fs');
 
+var port = Number(process.env.PORT || 3000);
+
 new http.Server(function (req, res) {
 
 	console.log(req.headers.cookie);
@@ -9,7 +11,7 @@ new http.Server(function (req, res) {
 
 	sendFile(file, res);
 
-}).listen(3000);
+}).listen(port);
 
 //var stream = new fs.ReadStream('big.html', {encoding: 'utf-8'});
 //var stream = new fs.ReadStream('file.png');
