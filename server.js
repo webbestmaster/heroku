@@ -48,7 +48,6 @@ function sendFile(file, res) {
 			console.log(buffer);
 		});
 
-
 	// detect when user close page until data was received
 	res.on('close', function () {
 		file.destroy();
