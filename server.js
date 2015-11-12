@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var mime = require('mime-types');
 
 var port = Number(process.env.PORT || 3000);
 
@@ -10,6 +11,8 @@ new http.Server(function (req, res) {
 	if (reqUrl === '/') {
 		reqUrl = 'index.html';
 	}
+
+	console.log(mime.lookup('index.html'));
 
 	var file = new fs.ReadStream('./' + reqUrl);
 

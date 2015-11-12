@@ -8,5 +8,8 @@
     "start": "node server.js"
   },
   "license": "ICS",
-  "author": "me"
+  "author": "me",
+  "dependencies": {
+    "mime-types": "^2.1.7"
+  }
 }
