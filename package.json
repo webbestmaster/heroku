@@ -10,7 +10,7 @@
   "repository": "https://github.com/webbestmaster/heroku",
   "license": "ICS",
   "author": "me",
-  "dependencies": {
+  "devDependencies": {
     "mime-types": "^2.1.7",
     "path": "^0.12.7"
   }
