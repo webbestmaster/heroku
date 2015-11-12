@@ -5,9 +5,13 @@ var port = Number(process.env.PORT || 3000);
 
 new http.Server(function (req, res) {
 
-	console.log(req.headers.cookie);
+	var reqUrl = req.url;
 
-	var file = new fs.ReadStream('./' + req.url);
+	if (reqUrl === '/') {
+		reqUrl = 'index.html';
+	}
+
+	var file = new fs.ReadStream('./' + reqUrl);
 
 	sendFile(file, res);
 
@@ -23,15 +27,14 @@ function sendFile(file, res) {
 	res.setHeader("Set-Cookie", ["type=ninja", "language=javascript"]);
 
 	//file.pipe(process.stdout); // see in console
-
 	file.on('error', function (err) {
 		res.statusCode = 404;
-		res.end('404 ((');
+		res.end('Not found - 404');
 		console.error(err);
 	});
 
 	// normal behavior for file stream - open and close
-
+/*
 	file
 		.on('open', function (err) {
 			// start pipe from file to res
@@ -47,12 +50,12 @@ function sendFile(file, res) {
 			console.log('---');
 			console.log(buffer);
 		});
+*/
 
 	// detect when user close page until data was received
 	res.on('close', function () {
 		file.destroy();
 	});
-
 
 }
 
