@@ -15,7 +15,7 @@ new http.Server(function (req, res) {
 
 	var file = new fs.ReadStream('./' + reqUrl);
 
-	res.setHeader('content-type', mime.contentType(path.extname(reqUrl)));
+	//res.setHeader('content-type', mime.contentType(path.extname(reqUrl)));
 
 	sendFile(file, res);
 
