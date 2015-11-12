@@ -13,8 +13,6 @@ new http.Server(function (req, res) {
 		reqUrl = 'index.html';
 	}
 
-	console.log(mime.lookup('index.html'));
-
 	var file = new fs.ReadStream('./' + reqUrl);
 
 	res.setHeader('content-type', mime.contentType(path.extname(reqUrl)));
