@@ -1,9 +1,7 @@
-var http = require('http');
-var fs = require('fs');
-var mime = require('mime-types');
-var path = require('path');
-
-var port = Number(process.env.PORT || 3000);
+var http = require('http'),
+	fs = require('fs'),
+	mime = require('mime-types'),
+	path = require('path');
 
 new http.Server(function (req, res) {
 
@@ -25,15 +23,12 @@ new http.Server(function (req, res) {
 		var lastModified = data.mtime.toString();
 
 		if (req.headers['if-modified-since'] === lastModified) {
-
 			res.statusCode = 304;
 			res.end('Not Modified - 304');
 			console.log('Not Modified - 304');
 			return;
-
 		}
 
-		// get last modified
 		res.setHeader('last-modified', lastModified);
 
 		res.setHeader('cache-control', 'private, max-age=300');
@@ -44,7 +39,7 @@ new http.Server(function (req, res) {
 
 	});
 
-}).listen(port);
+}).listen(process.env.PORT || 3000);
 
 //var stream = new fs.ReadStream('big.html', {encoding: 'utf-8'});
 //var stream = new fs.ReadStream('file.png');
@@ -68,24 +63,23 @@ function sendFile(reqUrl, res) {
 	});
 
 	// normal behavior for file stream - open and close
-/*
-	file
-		.on('open', function (err) {
-			// start pipe from file to res
-			console.log('file stream is open');
-			console.log(Date.now());
-		})
-		.on('close', function (err) {
-			// end pipe from file to res
-			console.log(Date.now());
-			console.log('file stream is close');
-		})
-		.on('data', function (buffer) {
-			console.log('---');
-			console.log(buffer);
-		});
-*/
-
+	/*
+	 file
+	 .on('open', function (err) {
+	 // start pipe from file to res
+	 console.log('file stream is open');
+	 console.log(Date.now());
+	 })
+	 .on('close', function (err) {
+	 // end pipe from file to res
+	 console.log(Date.now());
+	 console.log('file stream is close');
+	 })
+	 .on('data', function (buffer) {
+	 console.log('---');
+	 console.log(buffer);
+	 });
+	 */
 
 }
 
