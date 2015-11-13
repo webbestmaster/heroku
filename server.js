@@ -36,6 +36,8 @@ new http.Server(function (req, res) {
 		// get last modified
 		res.setHeader('last-modified', lastModified);
 
+		res.setHeader('cache-control', 'private, max-age=300');
+
 		res.setHeader('content-type', mime.contentType(path.extname(reqUrl)));
 
 		sendFile(reqUrl, res);
