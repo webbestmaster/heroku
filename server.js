@@ -7,13 +7,14 @@ var port = Number(process.env.PORT || 3000);
 
 new http.Server(function (req, res) {
 
-	var reqUrl = req.url;
+	var reqUrl = req.url,
+		file;
 
 	if (reqUrl === '/') {
-		reqUrl = 'index.html';
+		reqUrl = '/index.html';
 	}
 
-	var file = new fs.ReadStream('./' + reqUrl);
+	file = new fs.ReadStream('.' + reqUrl);
 
 	res.setHeader('content-type', mime.contentType(path.extname(reqUrl)));
 
