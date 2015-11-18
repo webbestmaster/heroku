@@ -1,9 +1,10 @@
-var cluster = require('cluster');
+var cluster = require('cluster'),
+	http = require('http'),
+	fs = require('fs'),
+	mime = require('mime-types'),
+	path = require('path'),
+	zlib = require('zlib');
 
-var http = require('http'),
-		fs = require('fs'),
-		mime = require('mime-types'),
-		path = require('path');
 
 //process.on('uncaughtException', function (err) {
 //	console.log(err.stack);
@@ -48,7 +49,6 @@ if (cluster.isMaster) {
 			// console.log("Getting message from process : ", msg.procId);
 			// console.log(msg.msg);
 
-
 		});
 
 		//Getting worker online
@@ -58,7 +58,7 @@ if (cluster.isMaster) {
 
 		//printing the listening port
 		worker.on('listening', function (address) {
-			console.log("Listening on port + ", address.port);
+			console.log("Listening on port:", address.port);
 		});
 
 		//Catching errors
@@ -118,9 +118,9 @@ if (cluster.isMaster) {
 
 			res.setHeader('content-type', mime.contentType(path.extname(reqUrl)));
 
-			process.send({ msg: reqUrl, procId: process.pid });
+			//process.send({ msg: reqUrl, procId: process.pid });
 
-			sendFile(reqUrl, res);
+			sendFile(reqUrl, req, res);
 
 		});
 
@@ -129,11 +129,20 @@ if (cluster.isMaster) {
 //var stream = new fs.ReadStream('big.html', {encoding: 'utf-8'});
 //var stream = new fs.ReadStream('file.png');
 
-	function sendFile(reqUrl, res) {
+	function sendFile(reqUrl, req, res) {
 
-		var file = new fs.ReadStream(reqUrl);
+		var file = new fs.ReadStream(reqUrl),
+			acceptEncoding = req.headers['accept-encoding'].split(/\s?\,\s?/gi);
 
-		file.pipe(res);
+		if ( acceptEncoding.indexOf('deflate') !== -1 ) {
+			res.setHeader('content-encoding', 'deflate');
+			file.pipe(zlib.createDeflate()).pipe(res);
+		} else if ( acceptEncoding.indexOf('gzip') !== -1 ) {
+			res.setHeader('content-encoding', 'gzip');
+			file.pipe(zlib.createGzip()).pipe(res);
+		} else {
+			file.pipe(res);
+		}
 
 		//file.pipe(process.stdout); // see in console
 		file.on('error', function (err) {
