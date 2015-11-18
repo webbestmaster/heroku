@@ -1,7 +1,8 @@
 var http = require('http'),
 	fs = require('fs'),
 	mime = require('mime-types'),
-	path = require('path');
+	path = require('path'),
+	zlib = require('zlib');
 
 new http.Server(function (req, res) {
 
@@ -35,20 +36,26 @@ new http.Server(function (req, res) {
 
 		res.setHeader('content-type', mime.contentType(path.extname(reqUrl)));
 
-		sendFile(reqUrl, res);
+		sendFile(reqUrl, req, res);
 
 	});
 
 }).listen(process.env.PORT || 3000);
 
-//var stream = new fs.ReadStream('big.html', {encoding: 'utf-8'});
-//var stream = new fs.ReadStream('file.png');
+function sendFile(reqUrl, req, res) {
 
-function sendFile(reqUrl, res) {
+	var file = new fs.ReadStream(reqUrl),
+		acceptEncoding = req.headers['accept-encoding'].split(/\s?\,\s?/gi);
 
-	var file = new fs.ReadStream(reqUrl);
-
-	file.pipe(res);
+	if ( acceptEncoding.indexOf('deflate') !== -1 ) {
+		res.setHeader('content-encoding', 'deflate');
+		file.pipe(zlib.createDeflate()).pipe(res);
+	} else if ( acceptEncoding.indexOf('gzip') !== -1 ) {
+		res.setHeader('content-encoding', 'gzip');
+		file.pipe(zlib.createGzip()).pipe(res);
+	} else {
+		file.pipe(res);
+	}
 
 	//file.pipe(process.stdout); // see in console
 	file.on('error', function (err) {
