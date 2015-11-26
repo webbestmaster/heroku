@@ -28,8 +28,12 @@
 			height: 100%;
 		}
 
+		.submit,
 		.text-area {
-			display: block;
+			font-family: "Courier New", Courier, monospace;
+		}
+
+		.text-area {
 			width: 100%;
 			height: 100%;
 			box-sizing: border-box;
@@ -45,9 +49,9 @@
 <form class="js-form">
 
 	<textarea class="text-area js-text-area"
-			  placeholder="Enter your code here..."></textarea>
+			  placeholder="Enter your code here..." rows="20"></textarea>
 
-	<input type="submit" value="eval">
+	<input type="submit" class="submit" value="eval">
 
 </form>
 
