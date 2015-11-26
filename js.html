@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<!-- mobile device -->
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- do not call phone -->
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- keywords and description -->
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<style type="text/css">
+
+		html {
+			min-height: 100%;
+		}
+
+		body {
+			margin: 0;
+			padding: 10px;
+			box-sizing: border-box;
+			height: 100%;
+		}
+
+		.text-area {
+			display: block;
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+
+	</style>
+
+</head>
+<body>
+
+<form class="js-form">
+
+	<textarea class="text-area js-text-area"
+			  placeholder="Enter your code here..."></textarea>
+
+	<input type="submit" value="eval">
+
+</form>
+
+<script type="text/javascript">
+
+	/*jslint white: true, nomen: true */
+	(function (win, doc) {
+
+		// 'use strict'; - no 'use strict' - use eval
+		/*global window */
+		/*global */
+
+		function $(selector, context) {
+
+			return (context || doc).querySelector(selector);
+
+		}
+
+		var $form = $('.js-form'),
+			$textArea = $('.js-text-area', $form);
+
+
+		$form.addEventListener('submit', function (e) {
+
+			e.preventDefault();
+
+			win.eval($textArea.value);
+
+
+		})
+
+	}(window, window.document));
+
+</script>
+
+</body>
+</html>
