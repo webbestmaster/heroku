@@ -17,7 +17,7 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 DEALINGS IN THE SOFTWARE.
 */
 
-(function(window){
+(function(win){
 
   var WORKER_PATH = 'js/recorderWorker.js';
 
@@ -106,6 +106,6 @@ DEALINGS IN THE SOFTWARE.
     this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
   };
 
-  window.Recorder = Recorder;
+  win.Recorder = Recorder;
 
 })(window);
