@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<!-- mobile device -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- do not call phone -->
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- keywords and description -->
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+</head>
+<body>
+
+<video id="video" src="" autoplay="autoplay" style="display: block;width: 322px; height: 242px;"></video>
+
+<script>
+
+	/*jslint white: true, nomen: true */
+	(function (win) {
+
+		'use strict';
+		/*global window */
+		/*global */
+
+//		var lastDate;
+
+		function stateChange(e) {
+
+
+
+		}
+
+		setInterval(function () {
+
+			win.fetch("/get-last").then(function (data) {
+//				lastDate = data.headers.get('last-date');
+				return data.blob();
+			}).then(function (blob) {
+
+				var reader = new FileReader();
+
+				reader.addEventListener('loadend', function (e) {
+
+					var data = JSON.parse(e.target.result);
+
+					var audio = new Audio();
+
+					audio.autoplay = true;
+
+					audio.src = data[1];
+
+					video.src = data[0];
+
+					//  var base64 = dataUrl.split(',')[1];
+				}, false);
+
+				reader.readAsText(blob);
+
+			});
+
+		}, 1000);
+
+	}(window));
+
+
+</script>
+
+
+</body>
+</html>

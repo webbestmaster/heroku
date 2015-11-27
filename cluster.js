@@ -5,6 +5,7 @@ var cluster = require('cluster'),
 	path = require('path'),
 	zlib = require('zlib');
 
+files = [];
 
 //process.on('uncaughtException', function (err) {
 //	console.log(err.stack);
@@ -12,7 +13,7 @@ var cluster = require('cluster'),
 //});
 //
 
-process.on('message', function (msg) {
+/*process.on('message', function (msg) {
 	console.log(msg);
 });
 
@@ -83,16 +84,86 @@ if (cluster.isMaster) {
 		cluster.fork();
 	});
 
-} else {
+} else {*/
 
 	// Create HTTP server.
 	new http.Server(function (req, res) {
+
 
 		var reqUrl = '.' + req.url;
 
 		if (reqUrl === './') {
 			reqUrl = './index.html';
 		}
+
+		if (reqUrl === './upload') {
+
+			var dataUrl = '';
+
+			req.on('data', function(data) {
+				dataUrl += data.toString();
+			});
+
+			req.on('end', function() {
+
+				var data = dataUrl,
+					video = data[0],
+					audio = data[1];
+
+				if (files.length >= 10) {
+					files.shift();
+				}
+
+				files.push({
+					data: data,
+					date: Date.now()
+				});
+
+			});
+
+			res.statusCode = 200;
+			res.end();
+			return;
+
+		}
+
+		if (reqUrl === './get-last') {
+
+			var lastDate = req.headers['last-date'] || '',
+				lastFile = files[files.length - 1];
+
+			res.statusCode = 200;
+
+			res.setHeader('content-type', 'text/plain; charset=utf-8');
+
+			if ( !lastDate ) {
+				res.setHeader('last-date', lastFile.date);
+				res.end(lastFile.data);
+				return;
+			}
+
+			var index = files.length - 1;
+
+			files.forEach(function (file, indexOfArr) {
+
+				if (file.date === lastDate) {
+					index = indexOfArr + 1;
+				}
+
+			});
+
+			lastFile = files[index] || lastFile;
+
+			res.setHeader('last-date', lastFile.date);
+
+			res.end(files[index]);
+
+			return;
+
+		}
+
+
+
 
 		fs.stat(reqUrl, function (err, data) {
 
@@ -177,5 +248,5 @@ if (cluster.isMaster) {
 
 	}
 
-}
+//}
 

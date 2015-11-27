@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+	<meta charset="UTF-8">
+	<title></title>
 </head>
 <body>
 
 
-
-<script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"> </script>
+<script src="MediaStreamRecorder.js"></script>
+<script src="jszip.min.js"></script>
 <script>
-    var mediaConstraints = {
-        audio: true,
-        video: true
-    };
+	var mediaConstraints = {
+		audio: true,
+		video: true
+	};
 
-    navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+	navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
 
-    function onMediaSuccess(stream) {
+	function blobToString(blob) {
 
-        var multiStreamRecorder = new MultiStreamRecorder(stream);
+		return new Promise(function (resolve, reject) {
 
-        multiStreamRecorder.width = 322;
-        multiStreamRecorder.height = 242;
+			var reader = new FileReader();
+
+			reader.addEventListener('loadend', function (e) {
+				resolve(e.target.result); //  var base64 = dataUrl.split(',')[1];
+			}, false);
+
+			reader.readAsDataURL(blob);
+
+		});
+
+	}
+
+	function onMediaSuccess(stream) {
+
+		var multiStreamRecorder = new MultiStreamRecorder(stream);
+
+		multiStreamRecorder.width = 322;
+		multiStreamRecorder.height = 242;
 
 //      multiStreamRecorder.video = yourVideoElement; // to get maximum accuracy
 
-        multiStreamRecorder.audioChannels = 1;
-        multiStreamRecorder.ondataavailable = function (blobs) {
+		multiStreamRecorder.audioChannels = 1;
+		multiStreamRecorder.ondataavailable = function (blobs) {
 
-            console.log('---');
-            // blobs.audio
-            // blobs.video
+			console.log('---');
+			// blobs.audio
+			// blobs.video
 
-        };
+			// todo: create worker for parallel
+			Promise.all([blobToString(blobs.video), blobToString(blobs.audio)]).then(function (result) {
 
-        multiStreamRecorder.start(1000); // set interval here
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "/upload", true);
 
-    }
+				xhr.send(JSON.stringify(result));
 
-    function onMediaError(e) {
-        console.error('media error', e);
-    }
+			});
+
+		};
+
+		multiStreamRecorder.start(1000); // set interval here
+
+	}
+
+	function onMediaError(e) {
+		console.error('media error', e);
+	}
 </script>
 
 
