@@ -16,7 +16,8 @@
             audioInput: null,
             realAudioInput: null,
             inputPoint: null,
-            audioRecorder: null
+            audioRecorder: null,
+            gain: null
         });
 
     }
@@ -60,24 +61,24 @@
             var ar = this;
 
             getUserMedia.call(nav, {
-                "audio": {
-                    "mandatory": {
-                        "googEchoCancellation": "false",
-                        "googAutoGainControl": "false",
-                        "googNoiseSuppression": "false",
-                        "googHighpassFilter": "false"
-                    },
-                    "optional": []
-                }
-            },
-            function (stream) {
-                ar.gotStream(stream);
-                return cb && cb();
-            },
-            function (e) {
-                alert('Error getting audio');
-                console.log(e);
-            });
+                    "audio": {
+                        "mandatory": {
+                            "googEchoCancellation": "false",
+                            "googAutoGainControl": "false",
+                            "googNoiseSuppression": "false",
+                            "googHighpassFilter": "false"
+                        },
+                        "optional": []
+                    }
+                },
+                function (stream) {
+                    ar.gotStream(stream);
+                    return cb && cb();
+                },
+                function (e) {
+                    alert('Error getting audio');
+                    console.log(e);
+                });
 
             return ar;
 
@@ -87,28 +88,29 @@
 
             var ar = this,
                 audioContext = ar.get('audioContext'),
+                inputPoint = audioContext.createGain(),
+                realAudioInput = audioContext.createMediaStreamSource(stream),
+                audioInput = ar.convertToMono(realAudioInput), // audioInput = realAudioInput
+                audioRecorder = new Recorder(inputPoint),
                 gain;
 
-            ar.set('inputPoint', audioContext.createGain());   // inputPoint = audioContext.createGain();
-
-            // Create an AudioNode from the stream.
-            ar.set('realAudioInput', audioContext.createMediaStreamSource(stream)); // realAudioInput = audioContext.createMediaStreamSource(stream);
-            //ar.set('audioInput', ar.convertToMono( ar.get('realAudioInput') ));
-            ar.set('audioInput', ar.convertToMono( ar.get('realAudioInput') ));
-            ar.get('audioInput').connect(ar.get('inputPoint'));    // audioInput.connect(inputPoint);
-
-            ar.set('audioRecorder', new Recorder(ar.get('inputPoint'))); // audioRecorder = new Recorder(inputPoint);
+            audioInput.connect(inputPoint);
 
             gain = audioContext.createGain();
             gain.gain.value = ar.defaults.gain.min;
-            ar.get('inputPoint').connect(gain);
+
+            inputPoint.connect(gain);
             gain.connect(audioContext.destination);
-            
+
+            ar.set('inputPoint', inputPoint);
+            ar.set('realAudioInput', realAudioInput);
+            ar.set('audioInput', audioInput);
+            ar.set('audioRecorder', audioRecorder);
             ar.set('gain', gain);
-            
+
         },
 
-        convertToMono: function(input) {
+        convertToMono: function (input) {
 
             var ar = this,
                 audioContext = ar.get('audioContext'),
@@ -137,7 +139,7 @@
 
         },
 
-        stopRecord: function () {
+        stopRecord: function (cb) {
 
             var ar = this,
                 audioRecorder = ar.get('audioRecorder');
@@ -146,43 +148,27 @@
 
             audioRecorder.stop();
 
-            audioRecorder.getBuffers(function () {
-
-                function setupDownload (blob) {
-                    var url = (window.URL || window.webkitURL).createObjectURL(blob);
-                    //var link = document.getElementById("save");
-                    //link.href = url;
-                    //link.download = filename || 'output.wav';
-                    console.log(url)
-
-                }
-
-                audioRecorder.exportWAV(setupDownload);
-
-            });
+            return cb && audioRecorder.getBuffers(function () {
+                    audioRecorder.exportMonoWAV(cb);
+                });
 
         }
 
     };
 
-
-
-
-
-
-
-
     win.ar = new AudioRecorder();
 
-    win.ar.init(function(){
+    win.ar.init(function () {
 
         win.ar.startRecord();
 
     });
 
-    setTimeout(function(){
+    setTimeout(function () {
 
-        win.ar.stopRecord();
+        win.ar.stopRecord(function (blob) {
+            console.log(blob);
+        });
 
     }, 2000);
 
