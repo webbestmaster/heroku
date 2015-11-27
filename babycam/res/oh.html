@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+
+<script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"> </script>
+<script>
+    var mediaConstraints = {
+        audio: true,
+        video: true
+    };
+
+    navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+
+    function onMediaSuccess(stream) {
+        var multiStreamRecorder = new MultiStreamRecorder(stream);
+
+        multiStreamRecorder.width = 322;
+        multiStreamRecorder.height = 242;
+        multiStreamRecorder.mimeType = 'video/webm';
+
+        multiStreamRecorder.audioChannels = 1;
+        multiStreamRecorder.ondataavailable = function (blobs) {
+            // blobs.audio
+            // blobs.video
+            console.log(blobs.audio);
+            var blobURL = URL.createObjectURL(blobs.audio);
+            console.log(blobURL);
+
+        };
+        multiStreamRecorder.start(3 * 1000);
+    }
+
+    function onMediaError(e) {
+        console.error('media error', e);
+    }
+</script>
+
+
+</body>
+</html>
