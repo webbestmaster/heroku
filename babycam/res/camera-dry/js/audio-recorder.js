@@ -56,31 +56,34 @@
             return this.attr[key];
         },
 
-        init: function (cb) {
+        init: function () {
 
             var ar = this;
 
-            getUserMedia.call(nav, {
-                    "audio": {
-                        "mandatory": {
-                            "googEchoCancellation": "false",
-                            "googAutoGainControl": "false",
-                            "googNoiseSuppression": "false",
-                            "googHighpassFilter": "false"
-                        },
-                        "optional": []
-                    }
-                },
-                function (stream) {
-                    ar.gotStream(stream);
-                    return cb && cb();
-                },
-                function (e) {
-                    alert('Error getting audio');
-                    console.log(e);
-                });
+            return new Promise(function (resolve, reject) {
 
-            return ar;
+                getUserMedia.call(nav, {
+                        "audio": {
+                            "mandatory": {
+                                "googEchoCancellation": "false",
+                                "googAutoGainControl": "false",
+                                "googNoiseSuppression": "false",
+                                "googHighpassFilter": "false"
+                            },
+                            "optional": []
+                        }
+                    },
+                    function (stream) {
+                        ar.gotStream(stream);
+                        resolve();
+                    },
+                    function (e) {
+                        alert('Error getting audio');
+                        console.log(e);
+                        reject();
+                    });
+
+            });
 
         },
 
@@ -139,7 +142,7 @@
 
         },
 
-        stopRecord: function (cb) {
+        stopRecord: function () {
 
             var ar = this,
                 audioRecorder = ar.get('audioRecorder');
@@ -148,9 +151,13 @@
 
             audioRecorder.stop();
 
-            return cb && audioRecorder.getBuffers(function () {
-                    audioRecorder.exportMonoWAV(cb);
+            return new Promise(function (resolve, reject) {
+
+                audioRecorder.getBuffers(function () {
+                    audioRecorder.exportMonoWAV(resolve);
                 });
+
+            });
 
         }
 
@@ -158,15 +165,13 @@
 
     win.ar = new AudioRecorder();
 
-    win.ar.init(function () {
-
+    win.ar.init().then(function () {
         win.ar.startRecord();
-
     });
 
     setTimeout(function () {
 
-        win.ar.stopRecord(function (blob) {
+        win.ar.stopRecord().then(function (blob) {
             console.log(blob);
         });
 
