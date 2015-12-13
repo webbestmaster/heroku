@@ -89,11 +89,14 @@ if (cluster.isMaster) {
 	// Create HTTP server.
 	new http.Server(function (req, res) {
 
-
 		var reqUrl = '.' + req.url;
 
 		if (reqUrl === './') {
 			reqUrl = './index.html';
+		}
+
+		if (reqUrl === './4' || reqUrl === './4/' ) {
+			reqUrl = './4/index.html';
 		}
 
 		if (reqUrl === './upload') {
