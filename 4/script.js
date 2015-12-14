@@ -90,17 +90,66 @@
 		a.dispatchEvent(new Event('click'));
 	}
 
+	function Queue() {
+
+		this.queue = [];
+		this.index = 0;
+		this.deferred = Promise.defer();
+
+	}
+
+	Queue.prototype = {
+
+		push: function (data) {
+			this.queue.push(data);
+		},
+
+		getNext: function () {
+			return this.queue[this.index++];
+		},
+
+		canNext: function () {
+			return this.queue.length > this.index;
+		},
+
+		run: function () {
+
+			var self = this;
+
+			if ( !self.canNext() ) {
+				return self.end();
+			}
+
+			self.getNext()().then(self.run.bind(self));
+
+			return self.deferred.promise;
+
+		},
+		end: function () {
+			return this.deferred.resolve();
+		}
+
+	};
+
 	$('.js-drop-down-zone').addEventListener('change', function (e) {
+
+		var queue = new Queue();
 
 		Array.prototype.forEach.call(e.currentTarget.files, function (file) {
 
-			readAsDataURL(file)
-				.then(dataURLToImage)
-				.then(resizeImage)
-				.then(function (dataURL) {
-					return saveDataURLAsImage(dataURL, file.name);
-				});
+			queue.push(function () {
+				return readAsDataURL(file)
+					.then(dataURLToImage)
+					.then(resizeImage)
+					.then(function (dataURL) {
+						return saveDataURLAsImage(dataURL, file.name);
+					});
+			});
 
+		});
+
+		queue.run().then(function () {
+			console.log('queue is done');
 		});
 
 	}, false);
