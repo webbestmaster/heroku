@@ -114,13 +114,19 @@
 
 		run: function () {
 
-			var self = this;
+			var self = this,
+				res;
 
 			if ( !self.canNext() ) {
 				return self.end();
 			}
 
-			self.getNext()().then(self.run.bind(self));
+			res = self.getNext()();
+			if (res instanceof Promise) {
+				res.then(self.run.bind(self));
+			} else {
+				self.run();
+			}
 
 			return self.deferred.promise;
 
