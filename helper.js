@@ -9,24 +9,39 @@ function parseReqUrl(req) {
 	// try to detect index file
 	var headers = req.headers,
 		reqUrl = req.url,
-		referer;
-
-	// detect index
+		reqUrlSlashIndex = reqUrl.lastIndexOf('/'),
+		referer,
+		refererSlashIndex;
 
 	// http://asdsasd/asdsad/ or http://asdsasd/asds.ad/sad
-	if ( (reqUrl.lastIndexOf('/') === reqUrl.length - 1) || (reqUrl.lastIndexOf('.') < reqUrl.lastIndexOf('/')) ) {
+	if ( (reqUrlSlashIndex === reqUrl.length - 1) || (reqUrl.lastIndexOf('.') < reqUrlSlashIndex) ) {
 		return '.' + path.normalize(reqUrl + '/index.html');
 	}
 
 	referer = headers.referer;
 
-	if ( referer.lastIndexOf('/') === referer.length - 1 ) {
+	if (!referer) {
 		return '.' + path.normalize(reqUrl);
 	}
 
-	reqUrl = path.normalize(referer.replace(req.protocol + '://' + headers.host, '') + '/' + reqUrl);
+	referer = referer.replace(req.protocol + '://' + headers.host, '');
 
-	return '.' + path.normalize(reqUrl);
+	refererSlashIndex = referer.lastIndexOf('/');
+
+	if ( refererSlashIndex === referer.length - 1 ) {
+		return '.' + path.normalize(reqUrl);
+	}
+
+	if (refererSlashIndex < referer.lastIndexOf('.')) {
+		if (refererSlashIndex) {
+			return '.' + path.normalize(referer.slice(0, refererSlashIndex - 1) + '/' + reqUrl);
+		} else {
+			return '.' + path.normalize('/' + reqUrl);
+		}
+
+	}
+
+	return '.' + path.normalize(referer + '/' + reqUrl);
 
 }
 
