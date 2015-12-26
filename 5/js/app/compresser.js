@@ -63,11 +63,12 @@
 
 		sendFilesToServer: function (files) {
 
-			var formData = new FormData();
+			var formData = new FormData(),
+				fileName;
 
 			files.forEach(function (file) {
-				console.log(file.name);
-				formData.append('file.' + file.name, file, file.name);
+				fileName = file.name.replace(/\s+/g, '_');
+				formData.append('file.' + fileName, file, fileName);
 			});
 
 			xhrPro({

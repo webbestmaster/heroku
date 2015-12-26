@@ -4,7 +4,8 @@ var fs = require('fs'),
 	zlib = require('zlib'),
 	deferred = require('deferred'),
 	tinify = require("tinify"),
-	multiparty = require('multiparty');
+	multiparty = require('multiparty'),
+	tinyImagesKeys;
 
 function parseReqUrl(req) {
 
@@ -269,23 +270,29 @@ function tinifyImage(data) {
 
 }
 
+tinyImagesKeys = [
+	{key: 'h0DW7VyYVXnl3awj2o7v9wXR-EavOiB5', time: 0},
+	{key: 'eSu5nMg0TSDairQWQC_Bx0h41PxKgKEp', time: 0},
+	{key: 'f8ZqkiaR5hwI9QRdc8Dwropue4kENmRp', time: 0},
+	{key: '_JsmPE63lCa9UsS45vlKWMlhBhRntoK8', time: 0},
+	{key: 'uY9x_ytUQ0sq9-bB8iTvwGnmiWVci4an', time: 0},
+	{key: 'RmSQIT1W2KC2_gZf27_KaZ7GWIzpmKJu', time: 0}
+];
+
 function tinifyImages(arr) {
 
-	var keys = [
-			'h0DW7VyYVXnl3awj2o7v9wXR-EavOiB5',
-			'eSu5nMg0TSDairQWQC_Bx0h41PxKgKEp',
-			'f8ZqkiaR5hwI9QRdc8Dwropue4kENmRp',
-			'_JsmPE63lCa9UsS45vlKWMlhBhRntoK8',
-			'uY9x_ytUQ0sq9-bB8iTvwGnmiWVci4an',
-			'RmSQIT1W2KC2_gZf27_KaZ7GWIzpmKJu'
-		],
-		queue = new Queue(),
+	var queue = new Queue(),
 		def = deferred(),
-		tinifyArr = [];
+		tinifyArr = [],
+		key;
 
-	tinify.key = keys.sort(function () {
-		return Math.random() - 0.5;
+	key = tinyImagesKeys.sort(function (a, b) {
+		return a.time - b.time;
 	})[0];
+
+	key.time += arr.length;
+
+	tinify.key = key.key;
 
 	arr.forEach(function (data) {
 		queue.push(function () {
