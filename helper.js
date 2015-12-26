@@ -13,6 +13,10 @@ function parseReqUrl(req) {
 		referer,
 		refererSlashIndex;
 
+	if (reqUrl.indexOf('/favicon.ico') !== -1) {
+		return './favicon.ico';
+	}
+
 	// http://asdsasd/asdsad/ or http://asdsasd/asds.ad/sad
 	if ( (reqUrlSlashIndex === reqUrl.length - 1) || (reqUrl.lastIndexOf('.') < reqUrlSlashIndex) ) {
 		return '.' + path.normalize(reqUrl + '/index.html');
