@@ -19,8 +19,6 @@ app.post('/api/convert-photo', function(req, res){
 	helper.saveFilesToDisk(req)
 		.then(helper.tinifyImages)
 		.then(function (data) {
-			console.log('---');
-			console.log(data);
 			res.send(JSON.stringify(data));
 		});
 

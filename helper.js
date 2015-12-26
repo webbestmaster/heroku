@@ -65,7 +65,7 @@ function sendFile(req, res) {
 		if (err) {
 			res.statusCode = 404;
 			res.end('Not found - 404');
-			console.error(err);
+			//console.error(err);
 			return;
 		}
 
@@ -74,7 +74,7 @@ function sendFile(req, res) {
 		if (req.headers['if-modified-since'] === lastModified) {
 			res.statusCode = 304;
 			res.end('Not Modified - 304');
-			console.log('Not Modified - 304');
+			//console.log('Not Modified - 304');
 			return;
 		}
 
@@ -102,8 +102,8 @@ function sendFile(req, res) {
 		file.on('error', function (err) {
 			res.statusCode = 404;
 			res.end('Not found - 404');
-			console.error('Not found - 404');
-			console.error(err);
+			//console.error('Not found - 404');
+			//console.error(err);
 		});
 
 		// detect when user close page until data was received
@@ -150,8 +150,11 @@ function renameSavedFile(name, file) {
 	newPath = pathArr.join('/');
 
 	fs.rename(curPath, newPath, function (err) {
-		if (err) console.log('ERROR: ' + err);
-		console.log('rename');
+		if (err) {
+			//console.log('ERROR: ' + err);
+			return;
+		}
+		//console.log('rename');
 		def.resolve({
 			name: fileName,
 			path: './' + pathToFile

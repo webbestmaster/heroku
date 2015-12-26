@@ -1,9 +1,56 @@
 /*jslint white: true, nomen: true */
-(function (win) {
+(function (win, doc) {
 
 	'use strict';
 	/*global window */
 	/*global */
+
+	function Queue() {
+
+		this.queue = [];
+		this.index = 0;
+		this.deferred = Promise.defer();
+
+	}
+
+	Queue.prototype = {
+
+		push: function (data) {
+			this.queue.push(data);
+		},
+
+		getNext: function () {
+			return this.queue[this.index++];
+		},
+
+		canNext: function () {
+			return this.queue.length > this.index;
+		},
+
+		run: function () {
+
+			var self = this,
+				res;
+
+			if (!self.canNext()) {
+				return self.end();
+			}
+
+			res = self.getNext()();
+			if (res instanceof Promise) {
+				res.then(self.run.bind(self));
+			} else {
+				self.run();
+			}
+
+			return self.deferred.promise;
+
+		},
+		end: function () {
+			return this.deferred.resolve();
+		}
+
+	};
 
 	win.compresser = {
 
@@ -55,9 +102,148 @@
 				$files = master.get('$files');
 
 			$files.on('change', function (e) {
-				master.sendFilesToServer(master.toArray(e.currentTarget.files));
+
+				console.log('begin');
+
+				master
+					.prepareImages(master.toArray(e.currentTarget.files))
+					.then(function (files) {
+						master.sendFilesToServer(files);
+					});
+
 			});
 
+		},
+
+		prepareImages: function (files) {
+
+			function isImage(file) {
+
+				var fileName = file.name;
+
+				return /\.(png|jpg|jpeg)$/.test(fileName);
+
+			}
+
+			function readAsDataURL(file) {
+
+				return new Promise(function (resolve, reject) {
+
+					var reader = new FileReader();
+
+					if ( !isImage(file) ) {
+						alert(file.name + ' - is not a image file!!!');
+						location.reload();
+						return;
+					}
+
+					reader.addEventListener('load', function (e) {
+						resolve(e.currentTarget.result);
+					}, false);
+
+					reader.readAsDataURL(file);
+
+				});
+
+			}
+
+			function dataURLToImage(dataUrl) {
+
+				return new Promise(function (resolve, reject) {
+
+					var image = new Image();
+
+					image.addEventListener('load', function () {
+						resolve(this);
+					}, false);
+
+					image.src = dataUrl;
+
+				});
+
+			}
+
+			function resizeImage(img) {
+
+				return new Promise(function (resolve, reject) {
+
+					var minCanvasSize = 350,
+						canvasSize,
+						canvas = doc.createElement('canvas'),
+						ctx = canvas.getContext('2d'),
+						imageWidth = img.width,
+						imageHeight = img.height,
+						offsetTop = 0,
+						offsetLeft = 0,
+						scaleWidth,
+						scaleHeight,
+						maxScale = Math.max(imageWidth / minCanvasSize, imageHeight / minCanvasSize, 1);
+
+					canvasSize = Math.round(minCanvasSize * maxScale);
+
+					canvas.width = canvas.height = canvasSize;
+
+					ctx.fillStyle = "#FFF";
+
+					ctx.fillRect(0, 0, canvasSize, canvasSize);
+
+					scaleWidth = canvasSize / imageWidth;
+					scaleHeight = canvasSize / imageHeight;
+
+					if (scaleWidth < scaleHeight) {
+						offsetTop = ( canvasSize - imageHeight * scaleWidth ) / 2 | 0;
+						ctx.drawImage(img, offsetLeft, offsetTop, imageWidth * scaleWidth | 0, imageHeight * scaleWidth | 0);
+					} else {
+						offsetLeft = ( canvasSize - imageWidth * scaleHeight ) / 2 | 0;
+						ctx.drawImage(img, offsetLeft, offsetTop, imageWidth * scaleHeight | 0, imageHeight * scaleHeight | 0);
+					}
+
+					resolve(canvas.toDataURL("image/jpeg", 1));
+
+				});
+
+			}
+
+			function dataURLToFile(dataUrl) {
+
+				var blobBin = atob(dataUrl.split(',')[1]),
+					array = [],
+					i, len;
+
+				for (i = 0, len = blobBin.length; i < len; i += 1) {
+					array.push(blobBin.charCodeAt(i));
+				}
+
+				return new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+			}
+
+			return new Promise(function (resolve, reject) {
+
+				var queue = new Queue(),
+					preparedFiles = [];
+
+				files.forEach(function (file) {
+
+					queue.push(function () {
+						return readAsDataURL(file)
+							.then(dataURLToImage)
+							.then(resizeImage)
+							.then(function (dataURL) {
+								preparedFiles.push({
+									name: file.name,
+									file: dataURLToFile(dataURL)
+								});
+							});
+					});
+
+				});
+
+				queue.run().then(function () {
+					resolve(preparedFiles);
+				});
+
+			});
 
 		},
 
@@ -66,9 +252,9 @@
 			var formData = new FormData(),
 				fileName;
 
-			files.forEach(function (file) {
-				fileName = file.name.replace(/\s+/g, '_');
-				formData.append('file.' + fileName, file, fileName);
+			files.forEach(function (item) {
+				fileName = item.name.replace(/\s+/g, '_');
+				formData.append('file.' + fileName, item.file, fileName);
 			});
 
 			xhrPro({
@@ -77,18 +263,20 @@
 				data: formData
 			}).then(function (data) {
 
-				var wrapper = $('.js-download-links');
+				var wrapper = $('<div></div>');
 
 				JSON.parse(data).forEach(function (data) {
 					wrapper
-						.append('<a class="download-image-link" style="display: none;" href="' + data.path + '/' + data.name + '" download="' + data.name + '" >' + data.name + '</a>');
+						.append('<a class="download-image-link" style="display: none;" href="' + data.path + '/' + data.name + '" download="tb-' + data.name + '" >' + data.name + '</a>');
 				});
 
 				wrapper.find('a').trigger('click');
+
+				console.log('end');
 
 			});
 		}
 
 	};
 
-}(window));
+}(window, window.document));
