@@ -134,11 +134,21 @@ function sendFile(req, res) {
 
 function renameSavedFile(name, file) {
 
-	var def = deferred();
+	var def = deferred(),
+		curPath = file.path,
+		newPath;
 
-	console.log(name, file);
+	newPath = curPath.split('/');
+	newPath.pop();
+	newPath.push(file.originalFilename);
+	newPath = newPath.join('/');
 
-	def.resolve();
+	fs.rename(curPath, newPath, function(err) {
+		if ( err ) console.log('ERROR: ' + err);
+		console.log('rename');
+		def.resolve();
+	});
+
 	return def.promise;
 
 }
@@ -154,12 +164,7 @@ function saveFilesToDisk(req, res) {
 		allFiles = Infinity;
 
 	function tryToResolve() {
-
-		console.log(savedFiles, allFiles);
-		if (savedFiles !== allFiles) {
-			return;
-		}
-		def.resolve();
+		return savedFiles === allFiles && def.resolve();
 	}
 
 	form.on('file', function (name, file) {
