@@ -113,7 +113,7 @@
 				}
 
 				master
-					.prepareImages(master.toArray(e.currentTarget.files))
+					.prepareImages(master.toArray(files))
 					.then(function (files) {
 						master.sendFilesToServer(files);
 					});
