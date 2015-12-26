@@ -105,6 +105,13 @@
 
 				console.log('begin');
 
+				var files = e.currentTarget.files;
+
+				if ( !files.length ) {
+					console.log('end');
+					return;
+				}
+
 				master
 					.prepareImages(master.toArray(e.currentTarget.files))
 					.then(function (files) {
