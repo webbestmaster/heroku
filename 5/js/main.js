@@ -5,8 +5,6 @@
 	/*global window */
 	/*global */
 
-	jBone.ajax = reqwest.compat;
-
 	win.addEventListener('load', function () {
 
 		compresser.init();

@@ -72,22 +72,13 @@
 				formData.append('file.' + file.name, file, file.name);
 			});
 
-
-/*
-			$.ajax({
-				url: '/api/convert-photo',
+			xhrPro({
 				type: 'POST',
-				data: formData   // tell jQuery not to set contentType
+				url: '/api/convert-photo',
+				data: formData
+			}).then(function (data) {
+				console.log(data);
 			});
-*/
-
-			var xhr = new XMLHttpRequest();
-
-			xhr.open('POST', '/api/convert-photo', true);
-
-			xhr.send(formData);
-
-
 		}
 
 	};

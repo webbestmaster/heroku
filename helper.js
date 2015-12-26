@@ -3,6 +3,7 @@ var fs = require('fs'),
 	path = require('path'),
 	zlib = require('zlib'),
 	deferred = require('deferred'),
+	tinify = require("tinify"),
 	multiparty = require('multiparty');
 
 function parseReqUrl(req) {
@@ -137,19 +138,22 @@ function renameSavedFile(name, file) {
 	var def = deferred(),
 		curPath = file.path,
 		newPath,
+		pathToFile,
+		pathArr,
 		fileName = file.originalFilename;
 
-	newPath = curPath.split('/');
-	newPath.pop();
-	newPath.push(fileName);
-	newPath = newPath.join('/');
+	pathArr = curPath.split('/');
+	pathArr.pop();
+	pathToFile = pathArr.join('/');
+	pathArr.push(fileName);
+	newPath = pathArr.join('/');
 
-	fs.rename(curPath, newPath, function(err) {
-		if ( err ) console.log('ERROR: ' + err);
+	fs.rename(curPath, newPath, function (err) {
+		if (err) console.log('ERROR: ' + err);
 		console.log('rename');
 		def.resolve({
 			name: fileName,
-			path: './' + newPath
+			path: './' + pathToFile
 		});
 	});
 
@@ -185,27 +189,121 @@ function saveFilesToDisk(req, res) {
 	form.parse(req, function (err, fields, files) {
 
 		//Object.keys(fields).forEach(function (name) {
-			//console.log('got field named ' + name);
+		//console.log('got field named ' + name);
 		//});
 
 		//Object.keys(files).forEach(function (name) {
-			//console.log(arguments);
-			//console.log('got file named ' + name);
+		//console.log(arguments);
+		//console.log('got file named ' + name);
 		//});
-
-		console.log('Upload completed!');
 
 		allFiles = Object.keys(files).length;
 
 		tryToResolve();
-
-		res.end('Received ' + files.length + ' files');
 
 	});
 
 	return def.promise;
 
 }
+
+function Queue() {
+
+	this.queue = [];
+	this.index = 0;
+	this.deferred = deferred();
+
+}
+
+Queue.prototype = {
+
+	push: function (data) {
+		this.queue.push(data);
+	},
+
+	getNext: function () {
+		return this.queue[this.index++];
+	},
+
+	canNext: function () {
+		return this.queue.length > this.index;
+	},
+
+	run: function () {
+
+		var self = this,
+			result;
+
+		if ( !self.canNext() ) {
+			return self.end();
+		}
+
+		result = self.getNext()();
+		if (result.then) {
+			result.then(self.run.bind(self));
+		} else {
+			self.run();
+		}
+
+		return self.deferred.promise;
+
+	},
+	end: function () {
+		return this.deferred.resolve();
+	}
+
+};
+
+function tinifyImage(data) {
+
+	var def = deferred();
+
+	tinify.fromFile(data.path + '/' + data.name).toFile('./tinify/' + data.name).then(function () {
+		def.resolve({
+			name: data.name,
+			path: './tinify/'
+		});
+	});
+
+	return def.promise;
+
+}
+
+function tinifyImages(arr) {
+
+	var keys = [
+			'h0DW7VyYVXnl3awj2o7v9wXR-EavOiB5',
+			'eSu5nMg0TSDairQWQC_Bx0h41PxKgKEp',
+			'f8ZqkiaR5hwI9QRdc8Dwropue4kENmRp',
+			'_JsmPE63lCa9UsS45vlKWMlhBhRntoK8',
+			'uY9x_ytUQ0sq9-bB8iTvwGnmiWVci4an',
+			'RmSQIT1W2KC2_gZf27_KaZ7GWIzpmKJu'
+		],
+		queue = new Queue(),
+		def = deferred(),
+		tinifyArr = [];
+
+	tinify.key = keys.sort(function () {
+		return Math.random() - 0.5;
+	})[0];
+
+	arr.forEach(function (data) {
+		queue.push(function () {
+			return tinifyImage(data)
+				.then(function (data) {
+					tinifyArr.push(data);
+				});
+		});
+	});
+
+	queue.run().then(function () {
+		def.resolve(tinifyArr);
+	});
+
+	return def.promise;
+}
+
+exports.tinifyImages = tinifyImages;
 
 exports.saveFilesToDisk = saveFilesToDisk;
 
