@@ -16,9 +16,11 @@ var express = require('express'),
 // use api - REST
 app.post('/api/convert-photo', function(req, res){
 
-	helper.saveFilesToDisk(req, res).then(function () {
-		console.log('done!!!');
-	})
+	helper.saveFilesToDisk(req, res).then(function (data) {
+
+		console.log(data);
+
+	});
 
 
 });

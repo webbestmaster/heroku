@@ -136,17 +136,21 @@ function renameSavedFile(name, file) {
 
 	var def = deferred(),
 		curPath = file.path,
-		newPath;
+		newPath,
+		fileName = file.originalFilename;
 
 	newPath = curPath.split('/');
 	newPath.pop();
-	newPath.push(file.originalFilename);
+	newPath.push(fileName);
 	newPath = newPath.join('/');
 
 	fs.rename(curPath, newPath, function(err) {
 		if ( err ) console.log('ERROR: ' + err);
 		console.log('rename');
-		def.resolve();
+		def.resolve({
+			name: fileName,
+			path: './' + newPath
+		});
 	});
 
 	return def.promise;
@@ -159,21 +163,21 @@ function saveFilesToDisk(req, res) {
 			//autoFiles: true,
 			uploadDir: 'upload-files'
 		}),
+		files = [],
 		def = deferred(),
 		savedFiles = 0,
 		allFiles = Infinity;
 
 	function tryToResolve() {
-		return savedFiles === allFiles && def.resolve();
+		return savedFiles === allFiles && def.resolve(files);
 	}
 
 	form.on('file', function (name, file) {
 
-		renameSavedFile(name, file).then(function () {
+		renameSavedFile(name, file).then(function (data) {
+			files.push(data);
 			savedFiles += 1;
-
 			tryToResolve();
-
 		});
 
 	});
