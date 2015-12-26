@@ -47,8 +47,6 @@
 
 			master.bindEventListeners();
 
-
-
 		},
 
 		bindEventListeners: function () {
@@ -77,7 +75,16 @@
 				url: '/api/convert-photo',
 				data: formData
 			}).then(function (data) {
-				console.log(data);
+
+				var wrapper = $('.js-download-links');
+
+				JSON.parse(data).forEach(function (data) {
+					wrapper
+						.append('<a class="download-image-link" style="display: none;" href="' + data.path + '/' + data.name + '" download="' + data.name + '" >' + data.name + '</a>');
+				});
+
+				wrapper.find('a').trigger('click');
+
 			});
 		}
 

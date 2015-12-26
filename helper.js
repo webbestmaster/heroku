@@ -261,7 +261,7 @@ function tinifyImage(data) {
 	tinify.fromFile(data.path + '/' + data.name).toFile('./tinify/' + data.name).then(function () {
 		def.resolve({
 			name: data.name,
-			path: './tinify/'
+			path: '/tinify'
 		});
 	});
 
