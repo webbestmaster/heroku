@@ -188,6 +188,10 @@
 
 					canvasSize = Math.round(minCanvasSize * maxScale);
 
+					if (canvasSize > 980) {
+						canvasSize = 980;
+					}
+
 					canvas.width = canvas.height = canvasSize;
 
 					ctx.fillStyle = "#FFF";
