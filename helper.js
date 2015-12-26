@@ -1,4 +1,5 @@
 var fs = require('fs'),
+	rimraf = require('rimraf'),
 	mime = require('mime-types'),
 	path = require('path'),
 	zlib = require('zlib'),
@@ -274,12 +275,12 @@ function tinifyImage(data) {
 }
 
 tinyImagesKeys = [
-	{key: 'h0DW7VyYVXnl3awj2o7v9wXR-EavOiB5', time: 0},
-	{key: 'eSu5nMg0TSDairQWQC_Bx0h41PxKgKEp', time: 0},
-	{key: 'f8ZqkiaR5hwI9QRdc8Dwropue4kENmRp', time: 0},
-	{key: '_JsmPE63lCa9UsS45vlKWMlhBhRntoK8', time: 0},
-	{key: 'uY9x_ytUQ0sq9-bB8iTvwGnmiWVci4an', time: 0},
-	{key: 'RmSQIT1W2KC2_gZf27_KaZ7GWIzpmKJu', time: 0}
+	{key: 'h0DW7VyYVXnl3awj2o7v9wXR-EavOiB5', time: 0}
+	//{key: 'eSu5nMg0TSDairQWQC_Bx0h41PxKgKEp', time: 0},
+	//{key: 'f8ZqkiaR5hwI9QRdc8Dwropue4kENmRp', time: 0},
+	//{key: '_JsmPE63lCa9UsS45vlKWMlhBhRntoK8', time: 0},
+	//{key: 'uY9x_ytUQ0sq9-bB8iTvwGnmiWVci4an', time: 0},
+	//{key: 'RmSQIT1W2KC2_gZf27_KaZ7GWIzpmKJu', time: 0}
 ];
 
 function tinifyImages(arr) {
@@ -312,6 +313,37 @@ function tinifyImages(arr) {
 
 	return def.promise;
 }
+
+function clearFolder(folder) {
+
+	var def = deferred();
+
+	rimraf('./' + folder + '/*', function () {
+		def.resolve();
+	});
+
+	return def.promise;
+}
+
+function clearFolders(folders) {
+
+	var queue = new Queue(),
+		def = deferred();
+
+	folders.forEach(function (folder) {
+		queue.push(function () {
+			return clearFolder(folder);
+		});
+	});
+
+	queue.run().then(function () {
+		def.resolve();
+	});
+
+	return def.promise;
+}
+
+exports.clearFolders = clearFolders;
 
 exports.tinifyImages = tinifyImages;
 

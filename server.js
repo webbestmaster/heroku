@@ -16,11 +16,17 @@ var express = require('express'),
 // use api - REST
 app.post('/api/convert-photo', function(req, res){
 
-	helper.saveFilesToDisk(req)
+	helper
+		.clearFolders(['upload-files', 'tinify'])
+		.then(helper.saveFilesToDisk.bind(helper, req))
 		.then(helper.tinifyImages)
 		.then(function (data) {
 			res.send(JSON.stringify(data));
 		});
+
+	//res.on('close', function () {
+		// still not need to implemented
+	//});
 
 });
 
@@ -36,7 +42,7 @@ app.use(function(req, res) {
 
 // Handle 500
 app.use(function(error, req, res, next) {
-	res.send('500: Internal Server Error', 500);
+	res.status(500).send('500: Internal Server Error');
 });
 
 app.listen(process.env.PORT || 3000);
