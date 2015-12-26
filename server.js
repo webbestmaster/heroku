@@ -3,9 +3,24 @@ var express = require('express'),
 	helper = require('./helper'),
 	sendFile = helper.sendFile;
 
+//app.use(express.bodyParser());
+
+//app.use(express.json());
+//app.use(express.urlencoded());
+//app.use(express.multipart());
+
+//app.use(bodyParser.json()); // for parsing application/json
+//app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+
 // use api - REST
-app.get('/api/*', function(req, res){
-	res.send('api');
+app.post('/api/convert-photo', function(req, res){
+
+	helper.saveFilesToDisk(req, res).then(function () {
+		console.log('done!!!');
+	})
+
+
 });
 
 // send file

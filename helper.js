@@ -1,8 +1,9 @@
-
 var fs = require('fs'),
 	mime = require('mime-types'),
 	path = require('path'),
-	zlib = require('zlib');
+	zlib = require('zlib'),
+	deferred = require('deferred'),
+	multiparty = require('multiparty');
 
 function parseReqUrl(req) {
 
@@ -18,7 +19,7 @@ function parseReqUrl(req) {
 	}
 
 	// http://asdsasd/asdsad/ or http://asdsasd/asds.ad/sad
-	if ( (reqUrlSlashIndex === reqUrl.length - 1) || (reqUrl.lastIndexOf('.') < reqUrlSlashIndex) ) {
+	if ((reqUrlSlashIndex === reqUrl.length - 1) || (reqUrl.lastIndexOf('.') < reqUrlSlashIndex)) {
 		return '.' + path.normalize(reqUrl + '/index.html');
 	}
 
@@ -32,7 +33,7 @@ function parseReqUrl(req) {
 
 	refererSlashIndex = referer.lastIndexOf('/');
 
-	if ( refererSlashIndex === referer.length - 1 ) {
+	if (refererSlashIndex === referer.length - 1) {
 		return '.' + path.normalize(reqUrl);
 	}
 
@@ -130,5 +131,73 @@ function sendFile(req, res) {
 	 */
 
 }
+
+function renameSavedFile(name, file) {
+
+	var def = deferred();
+
+	console.log(name, file);
+
+	def.resolve();
+	return def.promise;
+
+}
+
+function saveFilesToDisk(req, res) {
+
+	var form = new multiparty.Form({
+			//autoFiles: true,
+			uploadDir: 'upload-files'
+		}),
+		def = deferred(),
+		savedFiles = 0,
+		allFiles = Infinity;
+
+	function tryToResolve() {
+
+		console.log(savedFiles, allFiles);
+		if (savedFiles !== allFiles) {
+			return;
+		}
+		def.resolve();
+	}
+
+	form.on('file', function (name, file) {
+
+		renameSavedFile(name, file).then(function () {
+			savedFiles += 1;
+
+			tryToResolve();
+
+		});
+
+	});
+
+	form.parse(req, function (err, fields, files) {
+
+		//Object.keys(fields).forEach(function (name) {
+			//console.log('got field named ' + name);
+		//});
+
+		//Object.keys(files).forEach(function (name) {
+			//console.log(arguments);
+			//console.log('got file named ' + name);
+		//});
+
+		console.log('Upload completed!');
+
+		allFiles = Object.keys(files).length;
+
+		tryToResolve();
+
+		res.end('Received ' + files.length + ' files');
+
+	});
+
+	return def.promise;
+
+}
+
+exports.saveFilesToDisk = saveFilesToDisk;
 
 exports.sendFile = sendFile;
