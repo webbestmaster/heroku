@@ -21,7 +21,7 @@ function parseReqUrl(req) {
 		return './favicon.ico';
 	}
 
-	// http://asdsasd/asdsad/ or http://asdsasd/asds.ad/sad
+	// http://asdsasd/asdsad/ or http://asdsasd/asds.ad/sad but not http://asdsasd/asdsad/s.ad
 	if ((reqUrlSlashIndex === reqUrl.length - 1) || (reqUrl.lastIndexOf('.') < reqUrlSlashIndex)) {
 		return '.' + path.normalize(reqUrl + '/index.html');
 	}
@@ -34,22 +34,14 @@ function parseReqUrl(req) {
 
 	referer = referer.replace(req.protocol + '://' + headers.host, '');
 
+	// referer like a /asdsad/adsad/asd/
 	refererSlashIndex = referer.lastIndexOf('/');
 
-	if (refererSlashIndex === referer.length - 1) {
+	if ( refererSlashIndex === referer.length - 1 ) {
 		return '.' + path.normalize(reqUrl);
 	}
 
-	if (refererSlashIndex < referer.lastIndexOf('.')) {
-		if (refererSlashIndex) {
-			return '.' + path.normalize(referer.slice(0, refererSlashIndex - 1) + '/' + reqUrl);
-		} else {
-			return '.' + path.normalize('/' + reqUrl);
-		}
-
-	}
-
-	return '.' + path.normalize(referer + '/' + reqUrl);
+	return '.' + path.normalize( (refererSlashIndex ? referer.slice(0, refererSlashIndex) : referer) + reqUrl);
 
 }
 
