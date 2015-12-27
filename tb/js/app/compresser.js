@@ -128,7 +128,7 @@
 
 				var fileName = file.name;
 
-				return /\.(png|jpg|jpeg)$/.test(fileName);
+				return /\.(png|jpg|jpeg|gif)$/.test(fileName);
 
 			}
 
