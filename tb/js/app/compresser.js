@@ -128,7 +128,7 @@
 
 				var fileName = file.name;
 
-				return /\.(png|jpg|jpeg)$/.test(fileName);
+				return /\.(png|jpg|jpeg|gif)$/.test(fileName);
 
 			}
 
@@ -225,7 +225,7 @@
 					array.push(blobBin.charCodeAt(i));
 				}
 
-				return new Blob([new Uint8Array(array)], {type: 'image/png'});
+				return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 
 			}
 
@@ -242,7 +242,7 @@
 							.then(resizeImage)
 							.then(function (dataURL) {
 								preparedFiles.push({
-									name: file.name,
+									name: file.name.replace(/\.\w+$/, '.jpeg'),
 									file: dataURLToFile(dataURL)
 								});
 							});
@@ -274,14 +274,13 @@
 				data: formData
 			}).then(function (data) {
 
-				var wrapper = $('<div></div>');
-
 				JSON.parse(data).forEach(function (data) {
-					wrapper
-						.append('<a class="download-image-link" style="display: none;" href="' + data.path + '/' + data.name + '" download="tb-' + data.name + '" >' + data.name + '</a>');
-				});
 
-				wrapper.find('a').trigger('click');
+					var link = $('<a href="' + data.path + '/' + data.name + '" download="tb-' + data.name + '" ></a>');
+
+					link.trigger('click');
+
+				});
 
 				console.log('end');
 
