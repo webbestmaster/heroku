@@ -105,9 +105,16 @@
 
 				console.log('begin');
 
-				var files = e.currentTarget.files;
+				var files = e.currentTarget.files,
+					filesLength = files.length;
 
-				if ( !files.length ) {
+				if ( !filesLength ) {
+					console.log('end');
+					return;
+				}
+
+				if ( filesLength > 4 ) {
+					alert('4 files per one time!!!');
 					console.log('end');
 					return;
 				}
