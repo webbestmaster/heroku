@@ -121,9 +121,7 @@
 
 				master
 					.prepareImages(master.toArray(files))
-					.then(function (files) {
-						master.sendFilesToServer(files);
-					});
+					.then(master.sendFilesToServer);
 
 			});
 
