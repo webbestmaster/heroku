@@ -1,4 +1,4 @@
-(function (gi8002) {
+(function (gi2704) {
 (function () {
 'use strict';
 /*global console */
@@ -50,7 +50,7 @@ window.onerror = function (errorMsg, url, lineNumber) {
 
 };
 
-gi8002['/www/js/services/log.js'] = log;
+gi2704['/www/js/services/log.js'] = log;
 
 
 }());
@@ -58,7 +58,7 @@ gi8002['/www/js/services/log.js'] = log;
 'use strict';
 /*global window */
 
-var log = gi8002['/www/js/services/log.js'] || window.log;
+var log = gi2704['/www/js/services/log.js'] || window.log;
 
 var mediator;
 
@@ -138,7 +138,7 @@ mediator = {
 	}
 };
 
-gi8002['/www/js/services/mediator.js'] = mediator;
+gi2704['/www/js/services/mediator.js'] = mediator;
 
 }());
 (function () {
@@ -7224,8 +7224,8 @@ info = {
 	savedItem: 'cool-book-stories',
 	attr: {},
 	systemAttr: {},
-	defaultLanguage: 'ru',
-	availableLanguages: ['ru'],
+	defaultLanguage: 'en',
+	availableLanguages: ['en'],
 	//availableLanguages: ['ru', 'en'],
 
 	init: function () {
@@ -7465,7 +7465,7 @@ info = {
 
 info.init();
 
-gi8002['/www/js/services/info.js'] = info;
+gi2704['/www/js/services/info.js'] = info;
 
 
 }());
@@ -7473,9 +7473,9 @@ gi8002['/www/js/services/info.js'] = info;
 'use strict';
 /*global window */
 
-var Backbone = gi8002['/www/js/lib/backbone.js'] || window.Backbone;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
-var log = gi8002['/www/js/services/log.js'] || window.log;
+var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var log = gi2704['/www/js/services/log.js'] || window.log;
 
 var win = window,
 	doc = win.document,
@@ -7486,7 +7486,8 @@ var win = window,
 		defaults: {
 			width: 0,
 			height: 0,
-			orientation: ''
+			orientation: '',
+			minScreenSize: 153600 // 153600 = 320 * 480
 		},
 
 		eventTypes: {
@@ -7911,7 +7912,8 @@ var win = window,
 				data = {
 					width: width,
 					height: height,
-					orientation: orientation
+					orientation: orientation,
+					spaceSize: width * height
 				};
 
 			device.set(data);
@@ -7926,13 +7928,13 @@ var win = window,
 
 device = new Device();
 
-gi8002['/www/js/services/device.js'] = device;
+gi2704['/www/js/services/device.js'] = device;
 }());
 (function () {
 'use strict';
 /*global window, Date */
 
-var info = gi8002['/www/js/services/info.js'] || window.info;
+var info = gi2704['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	androidAds = {
@@ -7978,7 +7980,7 @@ var win = window,
 
 	androidAds.init();
 
-gi8002['/www/js/services/android-ads.js'] = androidAds;
+gi2704['/www/js/services/android-ads.js'] = androidAds;
 
 }());
 (function () {
@@ -8000,11 +8002,24 @@ var en = {
 		rateNow: 'Rate Now',
 		remindMeLater: 'Remind Me Later',
 		noThanks: 'No, Thanks'
-	}
+	},
+
+	// tangram
+
+		// title menu
+	'play-regular': 'play regular',
+	'play-master': 'play master',
+	'setting': 'setting',
+	'share': 'share',
+
+		// sections
+	sections: 'sections',
+	tangram: 'tangram',
+	person: 'person'
 
 };
 
-gi8002['/www/js/i18n/en.js'] = en;
+gi2704['/www/js/i18n/en.js'] = en;
 }());
 (function () {
 'use strict';
@@ -8025,19 +8040,23 @@ var ru = {
 		rateNow: 'Оценить',
 		remindMeLater: 'Напомнить позже',
 		noThanks: 'Нет, спасибо'
-	}
+	},
+
+	// tangram
+	tangram: 'танграм',
+	person: 'человечки'
 
 };
 
-gi8002['/www/js/i18n/ru.js'] = ru;
+gi2704['/www/js/i18n/ru.js'] = ru;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var info = gi8002['/www/js/services/info.js'] || window.info;
-var en = gi8002['/www/js/i18n/en.js'] || window.en;
-var ru = gi8002['/www/js/i18n/ru.js'] || window.ru;
+var info = gi2704['/www/js/services/info.js'] || window.info;
+var en = gi2704['/www/js/i18n/en.js'] || window.en;
+var ru = gi2704['/www/js/i18n/ru.js'] || window.ru;
 
 var lang = {
 
@@ -8057,7 +8076,7 @@ var lang = {
 
 lang.set(info.get('language'));
 
-gi8002['/www/js/services/lang.js'] = lang;
+gi2704['/www/js/services/lang.js'] = lang;
 
 
 
@@ -8066,41 +8085,44 @@ gi8002['/www/js/services/lang.js'] = lang;
 'use strict';
 /*global window */
 
-var doT = gi8002['/www/js/lib/dot.js'] || window.doT;
+var doT = gi2704['/www/js/lib/dot.js'] || window.doT;
 
 var doc = window.document,
-		templateMaster = {
-			templateSelector: '.js-template',
-			mainJsSelector: '.js-main-js',
-			tmplText: {},
-			tmplFn: {},
-			init: function () {
+	templateMaster = {
+		templateSelector: '.js-template',
+		mainJsSelector: '.js-main-js',
+		tmplText: {},
+		tmplFn: {},
+		init: function () {
 
-				var tm = this,
-						templates = doc.querySelectorAll(tm.templateSelector),
-						mainJs = doc.querySelector(tm.mainJsSelector);
+			var tm = this,
+				templates = doc.querySelectorAll(tm.templateSelector),
+				mainJs = doc.querySelector(tm.mainJsSelector);
 
-				Array.prototype.forEach.call(templates, function (tmplNode) {
+			Array.prototype.forEach.call(templates, function (tmplNode) {
 
-					var name = tmplNode.getAttribute('data-name'),
-						text = tmplNode.textContent.replace(/\<\!\-\-[\s\S]+?\-\-\>/gi, '').trim();
+				var name = tmplNode.getAttribute('data-name'),
+					text = tmplNode.textContent.replace(/\<\!\-\-[\s\S]+?\-\-\>/gi, '').trim();
 
-					tm.tmplText[name] = text;
-					tm.tmplFn[name] = doT.template(text);
+				tm.tmplText[name] = text;
+				tm.tmplFn[name] = doT.template(text);
 
-					tmplNode.parentNode.removeChild(tmplNode);
+				tmplNode.parentNode.removeChild(tmplNode);
 
-				});
+			});
 
-				return mainJs && mainJs.parentNode.removeChild(mainJs);
+			return mainJs && mainJs.parentNode.removeChild(mainJs);
 
-			}
+		},
+		get: function (name) {
+			return this.tmplFn[name];
+		}
 
-		};
+	};
 
 templateMaster.init();
 
-gi8002['/www/js/services/template-master.js'] = templateMaster;
+gi2704['/www/js/services/template-master.js'] = templateMaster;
 
 
 
@@ -8177,7 +8199,7 @@ var win = window,
 
 	};
 
-gi8002['/www/js/services/util.js'] = util;
+gi2704['/www/js/services/util.js'] = util;
 }());
 (function () {
 'use strict';
@@ -8220,7 +8242,7 @@ var win = window,
 
 };
 
-gi8002['/www/js/sound/player-android.js'] = androidPlayer;
+gi2704['/www/js/sound/player-android.js'] = androidPlayer;
 }());
 (function () {
 'use strict';
@@ -8277,7 +8299,7 @@ var win = window,
 
 	};
 
-gi8002['/www/js/sound/player-ios.js'] = iosPlayer;
+gi2704['/www/js/sound/player-ios.js'] = iosPlayer;
 
 
 }());
@@ -8285,7 +8307,7 @@ gi8002['/www/js/sound/player-ios.js'] = iosPlayer;
 'use strict';
 /*global window */
 
-var info = gi8002['/www/js/services/info.js'] || window.info;
+var info = gi2704['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	webPlayer = {
@@ -8359,17 +8381,17 @@ var win = window,
 
 };
 
-gi8002['/www/js/sound/player-web.js'] = webPlayer;
+gi2704['/www/js/sound/player-web.js'] = webPlayer;
 
 }());
 (function () {
 'use strict';
 /*global window */
 
-var androidPlayer = gi8002['/www/js/sound/player-android.js'] || window.androidPlayer;
-var iosPlayer = gi8002['/www/js/sound/player-ios.js'] || window.iosPlayer;
-var webPlayer = gi8002['/www/js/sound/player-web.js'] || window.webPlayer;
-var info = gi8002['/www/js/services/info.js'] || window.info;
+var androidPlayer = gi2704['/www/js/sound/player-android.js'] || window.androidPlayer;
+var iosPlayer = gi2704['/www/js/sound/player-ios.js'] || window.iosPlayer;
+var webPlayer = gi2704['/www/js/sound/player-web.js'] || window.webPlayer;
+var info = gi2704['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	soundMaster = {
@@ -8507,7 +8529,7 @@ var win = window,
 
 soundMaster.init();
 
-gi8002['/www/js/sound/sound-master.js'] = soundMaster;
+gi2704['/www/js/sound/sound-master.js'] = soundMaster;
 
 
 }());
@@ -8515,16 +8537,16 @@ gi8002['/www/js/sound/sound-master.js'] = soundMaster;
 'use strict';
 /*global window */
 
-var Backbone = gi8002['/www/js/lib/backbone.js'] || window.Backbone;
-var $ = gi8002['/www/js/lib/jbone.js'] || window.$;
-var _ = gi8002['/www/js/lib/lodash.js'] || window._;
-var info = gi8002['/www/js/services/info.js'] || window.info;
-//var tm = gi8002['/www/js/services/template-master.js'] || window.tm;
-var util = gi8002['/www/js/services/util.js'] || window.util;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
-var sm = gi8002['/www/js/sound/sound-master.js'] || window.sm;
-var lang = gi8002['/www/js/services/lang.js'] || window.lang;
-var device = gi8002['/www/js/services/device.js'] || window.device;
+var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
+var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var info = gi2704['/www/js/services/info.js'] || window.info;
+//var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
+var util = gi2704['/www/js/services/util.js'] || window.util;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var sm = gi2704['/www/js/sound/sound-master.js'] || window.sm;
+var lang = gi2704['/www/js/services/lang.js'] || window.lang;
+var device = gi2704['/www/js/services/device.js'] || window.device;
 
 var win = window,
 	doc = win.document,
@@ -9065,9 +9087,22 @@ var win = window,
 			return this.set(key, this.get(key) + delta);
 		},
 
-		set: function (key, value) {
-			this.attr[key] = value;
-			return value;
+		set: function (keyOrObj, value) {
+
+			var self = this,
+				attr = self.attr;
+
+			if (typeof keyOrObj === 'string') {
+				attr[keyOrObj] = value;
+				return self;
+			}
+
+			Object.keys(keyOrObj).forEach(function (key) {
+				this[key] = keyOrObj[key];
+			}, attr);
+
+			return self;
+
 		},
 		get: function (key) {
 			return this.attr[key];
@@ -9193,14 +9228,15 @@ var win = window,
 
 	});
 
-gi8002['/www/js/app/view/core/base.js'] = BaseView;
+gi2704['/www/js/app/view/core/base.js'] = BaseView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi8002['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi8002['/www/js/services/template-master.js'] || window.tm;
+var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
+var lang = gi2704['/www/js/services/lang.js'] || window.lang;
 
 var HomeView = BaseView.extend({
 
@@ -9210,7 +9246,12 @@ var HomeView = BaseView.extend({
 
 		var view = this;
 
-		view.setElement(tm.tmplFn.home());
+		view.setElement(tm.get('home')({
+			tm: tm,
+			lang: lang,
+			isBack: !false,
+			title: 'tangram'
+		}));
 
 		view.render();
 
@@ -9220,27 +9261,31 @@ var HomeView = BaseView.extend({
 
 });
 
-gi8002['/www/js/app/view/home/home-view.js'] = HomeView;
+gi2704['/www/js/app/view/home/home-view.js'] = HomeView;
 }());
 (function () {
-var Backbone = gi8002['/www/js/lib/backbone.js'] || window.Backbone;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
+'use strict';
+/*global window */
+
+var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
 
 var Tan = Backbone.Model.extend({
 
 	styles: {
-		fill: '#c00',
 		stroke: '#0c0',
-		'stroke-width': 0.02
+		'stroke-width': '1px',
+		'fill-opacity': 1
 	},
 
 	activeStyles: {
-		fill: '#0c0',
 		stroke: '#c00',
-		'stroke-width': 0.02
+		'stroke-width': '1px',
+		'fill-opacity': 0.5
 	},
 
 	nodeAttributes: {
+		fill: 'default',
 		'stroke-linejoin': 'round',
 		'stroke-alignment': 'center'
 	},
@@ -9606,16 +9651,26 @@ var Tan = Backbone.Model.extend({
 			attr = document.createAttribute('style');
 
 		Object.keys(styles).forEach(function (key) {
+			styleStr += key + ':' + styles[key] + ';';
+		});
+/*
+
+		Object.keys(styles).forEach(function (key) {
 			var value = (key === 'stroke-width') ? styles[key] * tan.get('scale') : styles[key];
 			styleStr += key + ':' + value + ';';
 		});
+*/
 
 		attr.value = styleStr;
 		node.setAttributeNode(attr);
 
 		Object.keys(nodeAttributes).forEach(function (key) {
 			var attr = document.createAttribute(key);
-			attr.value = nodeAttributes[key];
+			if (key === 'fill') {
+				attr.value = 'url(#' + (tan.get('patternId') || nodeAttributes[key]) + ')';
+			} else {
+				attr.value = nodeAttributes[key];
+			}
 			node.setAttributeNode(attr);
 		});
 
@@ -9676,45 +9731,447 @@ var Tan = Backbone.Model.extend({
 
 		return tan.isInTriangle(xy1, xy2, xy3, xy0) || tan.isInTriangle(xy3, xy4, xy1, xy0);
 
+	},
+
+	getAtoms: function () {
+
+		var tan = this,
+			triangles;
+
+		switch (tan.get('type')) {
+
+			case 'triangle-big':
+
+				triangles = tan.getTrianglesForTriangleBig();
+
+				break;
+
+			case 'triangle-medium':
+
+				triangles = tan.getTrianglesForTriangleMedium();
+
+				break;
+
+			case 'triangle-small':
+
+				triangles = tan.getTrianglesForTriangleSmall();
+
+				break;
+
+			case 'square':
+
+				triangles = tan.getTrianglesForSquare();
+
+				break;
+
+			case 'parallelogram':
+
+				triangles = tan.getTrianglesForParallelogram();
+
+				break;
+
+		}
+
+		return tan.toAtomicTans(triangles);
+
+	},
+
+	toAtomicTans: function (trianglesArr) {
+
+		var tan = this,
+			divideTriangle = tan.divideTriangle.bind(tan),
+			triangleToAtom = tan.triangleToAtom.bind(tan),
+			triangles = [];
+
+		trianglesArr.forEach(function (triangleParent) {
+			triangles = triangles.concat(divideTriangle(triangleParent));
+		});
+
+		return triangles.map(triangleToAtom);
+
+	},
+
+	triangleToAtom: function (triangle) {
+
+		// get center and angle
+
+		var tan = this,
+			scale = tan.get('scale'),
+			rightAngle = triangle[0],   // first angle is 90deg - see tan.divideTriangle
+			rightAngleX = rightAngle.x,
+			rightAngleY = rightAngle.y,
+			midCoordinate = tan.getAlignCoordinatesOfLine(triangle[1],  triangle[2], 2)[0],
+			midX = midCoordinate.x,
+			midY = midCoordinate.y,
+			angle = Math.atan2(rightAngleY - midY, rightAngleX - midX) * 180 / Math.PI;
+
+		angle = (Math.round(angle / 45) * 45) || 0; // -0 to 0
+
+		if (angle === -180) {
+			angle = 180;
+		}
+
+		return [
+			rightAngleX / scale,
+			rightAngleY / scale,
+			angle
+		];
+
+	},
+
+	divideTriangle: function (triangle) {
+
+		// find max side
+		var tan = this,
+			getAlignCoordinatesOfLine = tan.getAlignCoordinatesOfLine,
+			coordinates = triangle,
+			pow = Math.pow.bind(Math),
+			midCoordinate,
+			paths,
+			maxPathIndex,
+			maxSizeXY0,
+			maxSizeXY1,
+			midAngle;
+
+		// find bigger side
+		paths = coordinates.map(function (xy, index, arr) {
+
+			var next = arr[index + 1] || arr[0];
+
+			return pow(xy.x - next.x, 2) + pow(xy.y - next.y, 2);
+
+		});
+
+		maxPathIndex = paths.indexOf(Math.max.apply(Math, paths));
+
+		maxSizeXY0 = coordinates[maxPathIndex];
+		maxSizeXY1 = coordinates[maxPathIndex + 1] || coordinates[0];
+
+		midCoordinate = getAlignCoordinatesOfLine(maxSizeXY0, maxSizeXY1, 2)[0];
+
+		midAngle = coordinates[maxPathIndex - 1] || coordinates[2];
+
+		// point with right angle (90deg) at first
+		return [
+			[midCoordinate, midAngle, maxSizeXY0],
+			[midCoordinate, midAngle, maxSizeXY1]
+		];
+
+	},
+
+	getTrianglesForTriangleBig: function () {
+
+		var tan = this,
+			getAlignCoordinatesOfLine = tan.getAlignCoordinatesOfLine,
+			coordinates = tan.getCoordinates(),
+			midCoordinates = [];
+
+		coordinates.forEach(function (xy, index, arr) {
+			midCoordinates = midCoordinates.concat(getAlignCoordinatesOfLine(xy, arr[index + 1] || arr[0], 2));
+		});
+
+		return [
+			[coordinates[0], midCoordinates[0], midCoordinates[2]], //0
+			[coordinates[1], midCoordinates[0], midCoordinates[1]], // 1
+			[coordinates[2], midCoordinates[1], midCoordinates[2]], // 2
+			midCoordinates // inner
+		];
+
+	},
+
+	getTrianglesForTriangleMedium: function () {
+
+		var tan = this;
+
+		return tan.divideTriangle(tan.getCoordinates());
+
+	},
+
+	getTrianglesForTriangleSmall: function () {
+
+		return [this.getCoordinates()];
+
+	},
+
+	getTrianglesForSquare: function () {
+
+		var coordinates = this.getCoordinates();
+
+		return [
+			[coordinates[0], coordinates[1], coordinates[2]],
+			[coordinates[2], coordinates[3], coordinates[0]]
+		];
+
+	},
+
+	getTrianglesForParallelogram: function () {
+
+		var tan = this,
+			coordinates = tan.getCoordinates(),
+			pow = Math.pow.bind(Math),
+			diagonal0Size = pow(coordinates[0].x - coordinates[2].x, 2) + pow(coordinates[0].y - coordinates[2].y, 2),
+			diagonal1Size = pow(coordinates[1].x - coordinates[3].x, 2) + pow(coordinates[1].y - coordinates[3].y, 2);
+
+		if (diagonal0Size > diagonal1Size) {
+			return [
+				[coordinates[2], coordinates[1], coordinates[3]],
+				[coordinates[0], coordinates[1], coordinates[3]]
+			];
+		}
+
+		return [
+			[coordinates[3], coordinates[2], coordinates[0]],
+			[coordinates[1], coordinates[2], coordinates[0]]
+		];
+
 	}
 
 });
 
-gi8002['/www/js/app/view/tangram/models/tan.js'] = Tan;
+gi2704['/www/js/app/view/tangram/models/tan.js'] = Tan;
 }());
 (function () {
-var Backbone = gi8002['/www/js/lib/backbone.js'] || window.Backbone;
-var Tan = gi8002['/www/js/app/view/tangram/models/tan.js'] || window.Tan;
-var _ = gi8002['/www/js/lib/lodash.js'] || window._;
-var device = gi8002['/www/js/services/device.js'] || window.device;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
-var log = gi8002['/www/js/services/log.js'] || window.log;
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/*  SHA-1 implementation in JavaScript                  (c) Chris Veness 2002-2014 / MIT Licence  */
+/*                                                                                                */
+/*  - see http://csrc.nist.gov/groups/ST/toolkit/secure_hashing.html                              */
+/*        http://csrc.nist.gov/groups/ST/toolkit/examples.html                                    */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/* jshint node:true *//* global define, escape, unescape */
+'use strict';
+
+
+/**
+ * SHA-1 hash function reference implementation.
+ *
+ * @namespace
+ */
+var Sha1 = {};
+
+
+/**
+ * Generates SHA-1 hash of string.
+ *
+ * @param   {string} msg - (Unicode) string to be hashed.
+ * @returns {string} Hash of msg as hex character string.
+ */
+Sha1.hash = function(msg) {
+	// convert string to UTF-8, as SHA only deals with byte-streams
+	msg = msg.utf8Encode();
+
+	// constants [§4.2.1]
+	var K = [ 0x5a827999, 0x6ed9eba1, 0x8f1bbcdc, 0xca62c1d6 ];
+
+	// PREPROCESSING
+
+	msg += String.fromCharCode(0x80);  // add trailing '1' bit (+ 0's padding) to string [§5.1.1]
+
+	// convert string msg into 512-bit/16-integer blocks arrays of ints [§5.2.1]
+	var l = msg.length/4 + 2; // length (in 32-bit integers) of msg + ‘1’ + appended length
+	var N = Math.ceil(l/16);  // number of 16-integer-blocks required to hold 'l' ints
+	var M = new Array(N);
+
+	for (var i=0; i<N; i++) {
+		M[i] = new Array(16);
+		for (var j=0; j<16; j++) {  // encode 4 chars per integer, big-endian encoding
+			M[i][j] = (msg.charCodeAt(i*64+j*4)<<24) | (msg.charCodeAt(i*64+j*4+1)<<16) |
+				(msg.charCodeAt(i*64+j*4+2)<<8) | (msg.charCodeAt(i*64+j*4+3));
+		} // note running off the end of msg is ok 'cos bitwise ops on NaN return 0
+	}
+	// add length (in bits) into final pair of 32-bit integers (big-endian) [§5.1.1]
+	// note: most significant word would be (len-1)*8 >>> 32, but since JS converts
+	// bitwise-op args to 32 bits, we need to simulate this by arithmetic operators
+	M[N-1][14] = ((msg.length-1)*8) / Math.pow(2, 32); M[N-1][14] = Math.floor(M[N-1][14]);
+	M[N-1][15] = ((msg.length-1)*8) & 0xffffffff;
+
+	// set initial hash value [§5.3.1]
+	var H0 = 0x67452301;
+	var H1 = 0xefcdab89;
+	var H2 = 0x98badcfe;
+	var H3 = 0x10325476;
+	var H4 = 0xc3d2e1f0;
+
+	// HASH COMPUTATION [§6.1.2]
+
+	var W = new Array(80); var a, b, c, d, e;
+	for (var i=0; i<N; i++) {
+
+		// 1 - prepare message schedule 'W'
+		for (var t=0;  t<16; t++) W[t] = M[i][t];
+		for (var t=16; t<80; t++) W[t] = Sha1.ROTL(W[t-3] ^ W[t-8] ^ W[t-14] ^ W[t-16], 1);
+
+		// 2 - initialise five working variables a, b, c, d, e with previous hash value
+		a = H0; b = H1; c = H2; d = H3; e = H4;
+
+		// 3 - main loop
+		for (var t=0; t<80; t++) {
+			var s = Math.floor(t/20); // seq for blocks of 'f' functions and 'K' constants
+			var T = (Sha1.ROTL(a,5) + Sha1.f(s,b,c,d) + e + K[s] + W[t]) & 0xffffffff;
+			e = d;
+			d = c;
+			c = Sha1.ROTL(b, 30);
+			b = a;
+			a = T;
+		}
+
+		// 4 - compute the new intermediate hash value (note 'addition modulo 2^32')
+		H0 = (H0+a) & 0xffffffff;
+		H1 = (H1+b) & 0xffffffff;
+		H2 = (H2+c) & 0xffffffff;
+		H3 = (H3+d) & 0xffffffff;
+		H4 = (H4+e) & 0xffffffff;
+	}
+
+	return Sha1.toHexStr(H0) + Sha1.toHexStr(H1) + Sha1.toHexStr(H2) +
+		Sha1.toHexStr(H3) + Sha1.toHexStr(H4);
+};
+
+
+/**
+ * Function 'f' [§4.1.1].
+ * @private
+ */
+Sha1.f = function(s, x, y, z)  {
+	switch (s) {
+		case 0: return (x & y) ^ (~x & z);           // Ch()
+		case 1: return  x ^ y  ^  z;                 // Parity()
+		case 2: return (x & y) ^ (x & z) ^ (y & z);  // Maj()
+		case 3: return  x ^ y  ^  z;                 // Parity()
+	}
+};
+
+/**
+ * Rotates left (circular left shift) value x by n positions [§3.2.5].
+ * @private
+ */
+Sha1.ROTL = function(x, n) {
+	return (x<<n) | (x>>>(32-n));
+};
+
+
+/**
+ * Hexadecimal representation of a number.
+ * @private
+ */
+Sha1.toHexStr = function(n) {
+	// note can't use toString(16) as it is implementation-dependant,
+	// and in IE returns signed numbers when used on full words
+	var s="", v;
+	for (var i=7; i>=0; i--) { v = (n>>>(i*4)) & 0xf; s += v.toString(16); }
+	return s;
+};
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+
+/** Extend String object with method to encode multi-byte string to utf8
+ *  - monsur.hossa.in/2012/07/20/utf-8-in-javascript.html */
+if (typeof String.prototype.utf8Encode == 'undefined') {
+	String.prototype.utf8Encode = function() {
+		return unescape( encodeURIComponent( this ) );
+	};
+}
+
+/** Extend String object with method to decode utf8 string to multi-byte */
+if (typeof String.prototype.utf8Decode == 'undefined') {
+	String.prototype.utf8Decode = function() {
+		try {
+			return decodeURIComponent( escape( this ) );
+		} catch (e) {
+			return this; // invalid UTF-8? return as-is
+		}
+	};
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+if (typeof module != 'undefined' && module.exports) module.exports = Sha1; // CommonJs export
+if (typeof define == 'function' && define.amd) define([], function() { return Sha1; }); // AMD
+
+/* - - - es6 export - - - */
+
+//var sha1 = Sha1;
+//
+//console.log(sha1);
+
+gi2704['/www/js/lib/sha1.js'] = Sha1;
+
+}());
+(function () {
+'use strict';
+/*global window */
+
+var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
+var Tan = gi2704['/www/js/app/view/tangram/models/tan.js'] || window.Tan;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var device = gi2704['/www/js/services/device.js'] || window.device;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var log = gi2704['/www/js/services/log.js'] || window.log;
+var sha1 = gi2704['/www/js/lib/sha1.js'] || window.sha1;
 
 var tansInfo = {
-	triangleBig: {
-		count: 2,
-		coordinates: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0.5, y: 0.5}],
-		parts: 4
-	},
-	triangleMedium: {
+	'triangleBig-1': {
 		count: 1,
-		coordinates: [{x: 0, y: 0.5}, {x: 0.5, y: 1}, {x: 0, y: 1}],
-		parts: 4
+		coordinates: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0.5, y: 0.5}],
+		parts: 2,
+		type: 'triangle-big'
 	},
-	triangleSmall: {
-		count: 2,
+	'triangleBig-2': {
+		count: 1,
+		coordinates: [{x: 0.5, y: 0.5}, {x: 1, y: 0}, {x: 1, y: 1}],
+		parts: 2,
+		type: 'triangle-big'
+	},
+	'triangleMedium': {
+		count: 1,
+		coordinates: [{x: 0.5, y: 0}, {x: 0.5 + 0.5 / Math.SQRT2, y: 0.5 / Math.SQRT2}, {x: 0.5 - 0.5 / Math.SQRT2, y: 0.5 / Math.SQRT2}],
+		parts: 2,
+		type: 'triangle-medium',
+		patternId: 'triangle-medium-pattern'
+	},
+	'triangleSmall-1': {
+		count: 1,
 		coordinates: [{x: 0.25, y: 0.25}, {x: 0.5, y: 0.5}, {x: 0.25, y: 0.75}],
-		parts: 2
+		parts: 2,
+		type: 'triangle-small'
 	},
-	square: {
+	'triangleSmall-2': {
+		count: 1,
+		coordinates: [{x: 0.75, y: 0.75}, {x: 1, y: 1}, {x: 0.5, y: 1}],
+		parts: 2,
+		type: 'triangle-small'
+	},
+	'square': {
 		count: 1,
 		coordinates: [{x: 0.5, y: 0.5}, {x: 0.75, y: 0.75}, {x: 0.5, y: 1}, {x: 0.25, y: 0.75}],
-		parts: 2
+		parts: 2,
+		type: 'square'
 	},
-	parallelogram: {
+	'parallelogram': {
 		count: 1,
 		coordinates: [{x: 0, y: 0}, {x: 0.25, y: 0.25}, {x: 0.25, y: 0.75}, {x: 0, y: 0.5}],
-		parts: 2
+		parts: 2,
+		type: 'parallelogram'
+	}
+};
+
+var atomInfo = {
+	sideSize: 0.25
+};
+
+var patternInfo = {
+	polygon: {
+		styles: {
+			fill: '#333',
+			stroke: '#333',
+			'stroke-width': '2px'
+		},
+		attributes: {
+			'stroke-linejoin': 'round',
+			'stroke-alignment': 'center'
+		}
 	}
 };
 
@@ -9763,9 +10220,13 @@ var TanCollection = Backbone.Collection.extend({
 		mediator.installTo(collection);
 
 		collection.subscribe('deviceAction:isActive', collection.activateDeActiveTans);
-		collection.subscribe('deviceAction:dblTap', collection.flipTan);
+		collection.subscribe('deviceAction:dblTap', function (data) {
+			collection.flipTan(data);
+			collection.checkTangram();
+		});
 
-		collection.subscribe('tan:align', collection.align);
+		collection.subscribe('tan-collection:align', collection.align);
+		collection.subscribe('tan-collection:saveAtoms', collection.saveAtoms);
 
 	},
 
@@ -9818,7 +10279,108 @@ var TanCollection = Backbone.Collection.extend({
 
 			}
 
+			collection.checkTangram();
+
 		}
+
+	},
+
+	checkTangram: function () {
+
+		var collection = this,
+			tangramAtoms = collection.prepareToEquals(collection.getTangramAtoms()),
+			answerAtoms = collection.prepareToEquals(collection.getAnswerAtoms()),
+			isDone;
+
+		isDone = tangramAtoms.every(function (atomStr) {
+
+			if (answerAtoms.indexOf(atomStr) === -1) {
+				console.log(answerAtoms);
+				console.log(atomStr);
+			}
+
+			return answerAtoms.indexOf(atomStr) !== -1;
+		});
+
+		if (isDone) {
+			log('--- tangram is done ---', isDone);
+		}
+
+	},
+
+	prepareToEquals: function (arrAtoms) {
+
+		var strictNumber = this.strictNumber;
+
+		return arrAtoms
+			.map(function (atom) {
+				return [
+					strictNumber(atom[0]),
+					strictNumber(atom[1]),
+					atom[2]
+				];
+
+			})
+			.map(JSON.stringify);
+
+	},
+
+	strictNumber: function (number) {
+		return parseFloat(String(number).slice(0, 6));
+	},
+
+	getTangramAtoms: function () {
+
+		var collection = this,
+			tangramAtoms = [],
+			minX = Infinity,
+			minY = Infinity;
+
+		collection.each(function (tan) {
+			tangramAtoms = tangramAtoms.concat(tan.getAtoms());
+		});
+
+		tangramAtoms.forEach(function (xya) {
+
+			var x = xya[0],
+				y = xya[1];
+
+			if (x < minX) {
+				minX = x;
+			}
+
+			if (y < minY) {
+				minY = y;
+			}
+
+		});
+
+		return tangramAtoms.map(function (xya) {
+			return [
+				(Math.round((xya[0] - minX) * 1e8) / 1e8) || 0,
+				(Math.round((xya[1] - minY) * 1e8) / 1e8) || 0,
+				xya[2]
+			];
+		});
+
+	},
+
+	getAnswerAtoms: function () {
+
+		return this.getData('pattern');
+
+	},
+
+	saveAtoms: function () {
+
+		var collection = this,
+			tangramAtoms = collection.getTangramAtoms(),
+			tangramAtomsStr = JSON.stringify(tangramAtoms),
+			tangramHash = sha1.hash(tangramAtomsStr).slice(0, 6),
+			tangramName = $('.js-saved-atoms-name').val().trim(),
+			result = JSON.stringify({name: tangramName, hash: tangramHash, data: tangramAtoms});
+
+		console.log(result);
 
 	},
 
@@ -9836,8 +10398,12 @@ var TanCollection = Backbone.Collection.extend({
 
 		var collection = this,
 			tan = data.tan,
-			alignData = collection.getAlignData(data),
+			alignData,
 			maxAlignPath = collection.getData('maxAlignPath');
+
+		collection.moveToBox(tan);
+
+		alignData = collection.getAlignData(data);
 
 		if (alignData.pathSize > maxAlignPath) {
 			return;
@@ -9852,15 +10418,63 @@ var TanCollection = Backbone.Collection.extend({
 
 	},
 
+	moveToBox: function (tan) {
+
+		var collection = this,
+			maxX = collection.getData('maxX'),
+			maxY = collection.getData('maxY'),
+			minX = collection.getData('minX'),
+			minY = collection.getData('minY'),
+			dx = undefined,
+			dy = undefined,
+			coordinates = tan.getCoordinates();
+
+		coordinates.forEach(function (xy) {
+
+			var x = xy.x,
+				y = xy.y;
+
+			if (x > maxX) {
+				dx = x - maxX;
+			}
+
+			if (y > maxY) {
+				dy = y - maxY;
+			}
+
+			if (x < minX) {
+				dx = x - minX;
+			}
+
+			if (y < minY) {
+				dy = y - minY;
+			}
+
+		});
+
+		if (dx || dy) {
+			tan.move({
+				dx: -dx || 0,
+				dy: -dy || 0
+			});
+		}
+
+	},
+
 	getAlignData: function (data) {
 
 		var collection = this,
 			alignTan = data.tan,
 			alignTanCoordinates = alignTan.getAlignCoordinates(),
+			initedPattern = collection.getData('initedPattern'),
+			initedPatternAlignPoints = collection.getInitedPatternAlignPoints(),
 			align = {},
 			minPath = Infinity,
 			otherTansCoordinates = [],
 			pow = Math.pow.bind(Math);
+
+		// TODO: difficult hard
+		otherTansCoordinates = otherTansCoordinates.concat(initedPatternAlignPoints);
 
 		collection.each(function (tan) {
 			if (tan === alignTan) {
@@ -9901,10 +10515,14 @@ var TanCollection = Backbone.Collection.extend({
 
 	},
 
+	getInitedPatternAlignPoints: function () {
+		return this.getData('patternAlignPoints')
+	},
+
 	getHoveredTan: function (xy) {
 
 		var collection = this,
-			hoveredTan;
+			hoveredTan = false;
 
 		collection.each(function (tan) {
 
@@ -9931,6 +10549,7 @@ var TanCollection = Backbone.Collection.extend({
 
 		this.each(function (tan) {
 			tan.set('isActive', false);
+			tan.drawActiveDeActive(false);
 		});
 
 	},
@@ -9942,26 +10561,29 @@ var TanCollection = Backbone.Collection.extend({
 
 	createTans: function () {
 
-		_.each(tansInfo, function (data) {
+		_.each(tansInfo, function (data, key) {
 			for (var i = 0, len = data.count; i < len; i += 1) {
 				this.add({
 					coordinates: data.coordinates,
 					parts: data.parts,
 					count: len,
-					scale: this.getData('scale')
+					scale: this.getData('scale'),
+					type: data.type,
+					patternId: data.patternId || null
 				});
 			}
 		}, this);
 
 	},
 
-	createDrawElement: function () {
+	createDrawElement: function ($node) {
 
 		// device
 		var collection = this,
 			width = device.get('width'),
 			height = device.get('height'),
-			svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+		//svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+			svg = $node.find('svg')[0],
 			attributes = {
 				x: '0px',
 				y: '0px',
@@ -9984,7 +10606,8 @@ var TanCollection = Backbone.Collection.extend({
 
 	addDrawFieldTo: function ($node) {
 
-		$node.append(this.createDrawElement());
+		//$node.append(this.createDrawElement($node));
+		this.createDrawElement($node);
 
 	},
 
@@ -9996,22 +10619,186 @@ var TanCollection = Backbone.Collection.extend({
 			tan.drawTo(svg);
 		});
 
+	},
+
+	initPattern: function (pattern) {
+
+		var collection = this,
+			atomToTriangle = collection.atomToTriangle,
+			scale = collection.getData('scale'),
+			triangles = pattern.data,
+			patternDeltaX,
+			patternDeltaY,
+			viewSizeX = collection.getData('sizeX'),
+			viewSizeY = collection.getData('sizeY'),
+			patternMaxX = -Infinity,
+			patternMaxY = -Infinity,
+			alignPoints = [];
+
+		collection.setData('pattern', triangles);
+
+		triangles = triangles.map(function (atom) {
+			return atomToTriangle(atom, scale);
+		});
+
+		triangles.forEach(function (triangle) {
+
+			var rightAngle = triangle[0],
+				x = rightAngle.x,
+				y = rightAngle.y;
+
+			if (x > patternMaxX) {
+				patternMaxX = x;
+			}
+
+			if (y > patternMaxY) {
+				patternMaxY = y;
+			}
+
+		});
+
+		patternDeltaX = Math.round((viewSizeX - patternMaxX) / 2);
+		patternDeltaY = Math.round((viewSizeY - patternMaxY) / 2);
+
+		collection.setData({
+			patternDeltaX: patternDeltaX,
+			patternDeltaY: patternDeltaY
+		});
+
+		triangles = triangles.map(function (triangle) {
+			return triangle.map(function (xy, index) {
+
+				var x = xy.x + patternDeltaX,
+					y = xy.y + patternDeltaY;
+
+				// add to align point big side only
+				if (index) {
+					alignPoints.push({
+						x: x,
+						y: y
+					});
+				}
+
+				return {
+					x: x,
+					y: y
+				}
+			});
+		});
+
+		collection.setData('patternAlignPoints', alignPoints);
+		collection.setData('initedPattern', triangles);
+
+	},
+
+	drawPattern: function () {
+
+		// TODO: difficult hard
+		var collection = this,
+			coordinatesToPolygon = collection.coordinatesToPolygon.bind(collection),
+			pattern = collection.getData('initedPattern'),
+			width = collection.getData('sizeX'),
+			height = collection.getData('sizeY'),
+			svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+			attributes = {
+				x: '0px',
+				y: '0px',
+				width: width + 'px',
+				height: height + 'px',
+				viewBox: [0, 0, width, height].join(' '),
+				'class': 'tangram-pattern'
+			};
+
+		Object.keys(attributes).forEach(function (key) {
+			var attr = document.createAttribute(key);
+			attr.value = attributes[key];
+			svg.setAttributeNode(attr);
+		});
+
+		pattern.forEach(function (triangle) {
+			var polygon = coordinatesToPolygon(triangle);
+			svg.appendChild(polygon);
+		});
+
+		return svg;
+
+	},
+
+	coordinatesToPolygon: function (coordinates, stylesArg) {
+
+		var collection = this,
+			polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon'),
+			styles = stylesArg || patternInfo.polygon.styles,
+			attributes = patternInfo.polygon.attributes,
+			styleStr = '',
+			attr = document.createAttribute('style');
+
+		// set position
+		polygon.setAttribute('points', coordinates.map(function (xy) {
+			return xy.x + ',' + xy.y;
+		}).join(' '));
+
+		// set styles
+		Object.keys(styles).forEach(function (key) {
+			//var value = (key === 'stroke-width') ? styles[key] * collection.getData('scale') : styles[key];
+			styleStr += key + ':' + styles[key] + ';';
+		});
+
+		attr.value = styleStr;
+		polygon.setAttributeNode(attr);
+
+		Object.keys(attributes).forEach(function (key) {
+			var attr = document.createAttribute(key);
+			attr.value = attributes[key];
+			polygon.setAttributeNode(attr);
+		});
+
+		return polygon;
+
+	},
+
+	atomToTriangle: function (atom, scale) {
+
+		var x = atom[0] * scale,
+			y = atom[1] * scale,
+			angleRight = atom[2] - 45,
+			angleLeft = angleRight + 90,
+			toRad = Math.PI / 180,
+			sideSize = atomInfo.sideSize * scale;
+
+		angleRight = angleRight * toRad;
+		angleLeft = angleLeft * toRad;
+
+		return [
+			{
+				x: x,
+				y: y
+			},
+			{
+				x: x - Math.cos(angleLeft) * sideSize,
+				y: y - Math.sin(angleLeft) * sideSize
+			},
+			{
+				x: x - Math.cos(angleRight) * sideSize,
+				y: y - Math.sin(angleRight) * sideSize
+			}
+		];
+
 	}
 
 });
 
-gi8002['/www/js/app/view/tangram/models/tan-collection.js'] = TanCollection;
+gi2704['/www/js/app/view/tangram/models/tan-collection.js'] = TanCollection;
 }());
 (function () {
-var Backbone = gi8002['/www/js/lib/backbone.js'] || window.Backbone;
-var _ = gi8002['/www/js/lib/lodash.js'] || window._;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
-var info = gi8002['/www/js/services/info.js'] || window.info;
-var log = gi8002['/www/js/services/log.js'] || window.log;
-
 'use strict';
 /*global window */
-/*global */
+
+var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var info = gi2704['/www/js/services/info.js'] || window.info;
+var log = gi2704['/www/js/services/log.js'] || window.log;
 
 var RotaterModel = Backbone.Model.extend({
 
@@ -10042,7 +10829,7 @@ var RotaterModel = Backbone.Model.extend({
 			parentView = rotater.get('parentView'),
 			parent$el = parentView.$el,
 			size = rotater.get('size'),
-			$rotater = $('<div class="rotater rotater--hidden"></div>');
+			$rotater = $('<div class="rotater rotater__hidden"></div>');
 
 		$rotater.css({
 			width: size + 'px',
@@ -10110,12 +10897,15 @@ var RotaterModel = Backbone.Model.extend({
 
 	connectTan: function (data) {
 
-		var rotater = this;
+		var rotater = this,
+			tan = data.tan;
 
 		rotater.set({
-			tan: data.tan,
+			tan: tan,
 			isActive: true
 		});
+
+		tan.drawActiveDeActive(true);
 
 		rotater.showNode();
 
@@ -10135,6 +10925,8 @@ var RotaterModel = Backbone.Model.extend({
 			startRotateTanAngle: tan.get('rotate')
 		});
 
+		tan.drawActiveDeActive(true);
+
 	},
 
 	//active: function () {
@@ -10153,7 +10945,7 @@ var RotaterModel = Backbone.Model.extend({
 
 		rotater.moveTo(tan.getCenterCoordinates());
 
-		$rotater.removeClass('rotater--hidden');
+		$rotater.removeClass('rotater__hidden');
 
 	},
 
@@ -10181,7 +10973,7 @@ var RotaterModel = Backbone.Model.extend({
 		var rotater = this,
 			$rotater = rotater.get('$rotater');
 
-		$rotater.addClass('rotater--hidden');
+		$rotater.addClass('rotater__hidden');
 
 	},
 
@@ -10219,49 +11011,165 @@ var RotaterModel = Backbone.Model.extend({
 
 		tan.set('rotate', tanRotate);
 
-		tan.publish('tan:align', {tan: tan});
+		tan.publish('tan-collection:align', {tan: tan});
+
+		tan.drawActiveDeActive(true);
 
 		tan.reDraw();
 
 	}
 
-
 });
 
 
-gi8002['/www/js/app/view/tangram/rotater/rotater-model.js'] = RotaterModel;
+gi2704['/www/js/app/view/tangram/rotater/rotater-model.js'] = RotaterModel;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi8002['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi8002['/www/js/services/template-master.js'] || window.tm;
-var TanCollection = gi8002['/www/js/app/view/tangram/models/tan-collection.js'] || window.TanCollection;
-var RotaterModel = gi8002['/www/js/app/view/tangram/rotater/rotater-model.js'] || window.RotaterModel;
+var section = {
+
+	name: 'person',
+	data: [
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]}
+
+	]
+
+};
+
+gi2704['/www/js/app/data/sections/person.js'] = section;
+
+}());
+(function () {
+'use strict';
+/*global window */
+
+var person = gi2704['/www/js/app/data/sections/person.js'] || window.person;
+
+var tangrams = {
+
+	version: '0.1',
+	versionCode: 1,
+	data: [
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person
+	]
+
+};
+
+gi2704['/www/js/app/data/tangrams.js'] = tangrams;
+}());
+(function () {
+'use strict';
+/*global window */
+
+var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
+var TanCollection = gi2704['/www/js/app/view/tangram/models/tan-collection.js'] || window.TanCollection;
+var RotaterModel = gi2704['/www/js/app/view/tangram/rotater/rotater-model.js'] || window.RotaterModel;
+var device = gi2704['/www/js/services/device.js'] || window.device;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var tangrams = gi2704['/www/js/app/data/tangrams.js'] || window.tangrams;
 
 var TangramView = BaseView.extend({
 
 	events: {
-		scroll: 'stopEvent'
+		scroll: 'stopEvent',
+		'click .js-save-atoms': 'saveAtoms'
 	},
 
-	initialize: function () {
+	initialize: function (dataArg) {
 
 		var view = this,
+			data = dataArg || {},
 			tanCollection = new TanCollection(),
 			rotater = new RotaterModel(),
-			scale = 200;
+			mode = data.mode || 'normal',
+			scale,
+			minX = 0,
+			minY = 0,
+			maxX = device.get('width'),
+			maxY = device.get('height'),
+			sizeX = maxX - minX,
+			sizeY = maxY - minY,
+			viewData = {
+				minX: minX,
+				minY: minY,
+				maxX: maxX,
+				maxY: maxY,
+				sizeX: sizeX,
+				sizeY: sizeY
+			},
+			patternSvg;
 
-		view.setElement(tm.tmplFn.tangram());
+		view.set('mode', mode);
 
 		view.set('tan-collection', tanCollection);
 
+		view.set(viewData);
+		tanCollection.setData(viewData);
+
+		// get test tangram
+		var pattern = tangrams.data[0].data[1];
+
+		scale = view.detectScale(pattern);
+
+		view.setElement(tm.get('tangram')({
+			mode: mode,
+			size: scale
+		}));
+
+		view.bindEventListeners();
+
 		tanCollection.setScale(scale);
+		tanCollection.initPattern(pattern);
+		patternSvg = tanCollection.drawPattern();
 		tanCollection.createTans();
 		tanCollection.addDrawFieldTo(view.$el);
 		tanCollection.drawTans();
 		tanCollection.setData('rotater', rotater);
+
+		view.$el.append(patternSvg);
 
 		rotater.initialize({
 			parentView: view,
@@ -10272,22 +11180,279 @@ var TangramView = BaseView.extend({
 
 		return BaseView.prototype.initialize.apply(view, arguments);
 
+	},
+
+	bindEventListeners: function () {
+
+		var view = this;
+
+		//view.subscribe('tangram-view:drawPattern', view.drawPattern);
+
+	},
+
+	drawPattern: function (data) {
+
+		var view = this,
+			triangles = data.triangles,
+			scale = view.get('scale');
+
+		console.log('drawPattern!!!!');
+		console.log(triangles);
+
+	},
+
+	detectScale: function (pattern) {
+
+		var view = this,
+			minX = view.get('minX'),
+			minY = view.get('minY'),
+			maxX = view.get('maxX'),
+			maxY = view.get('maxY'),
+			sizeX = maxX - minX,
+			sizeY = maxY - minY,
+			viewQ = sizeX / sizeY,
+			patternQ,
+			atoms = pattern.data,
+			maxPatternX = -Infinity,
+			maxPatternY = -Infinity,
+			scale,
+			minScreenSize = device.get('minScreenSize'),
+			spaceSize = (maxX - minX) * (maxY - minY);
+
+		if (view.get('mode') === 'constructor') {
+
+			scale = Math.round(Math.sqrt(spaceSize / minScreenSize) * 130);
+
+			view.set('scale', scale);
+
+			return scale;
+
+		}
+
+		atoms.forEach(function (atom) {
+
+			var x = atom[0],
+				y = atom[1];
+
+			if (x > maxPatternX) {
+				maxPatternX = x;
+			}
+
+			if (y > maxPatternY) {
+				maxPatternY = y;
+			}
+
+		});
+
+		view.get('tan-collection').setData({
+			patternWidth: maxPatternX,
+			patternHeight: maxPatternY
+		});
+
+		patternQ = maxPatternX / maxPatternY;
+
+		scale = (patternQ > viewQ) ? (sizeX / maxPatternX) : (sizeY / maxPatternY);
+
+		scale = Math.round(scale * 0.66);
+
+		view.set('scale', scale);
+
+		return scale;
+
+	},
+
+	saveAtoms: function () {
+
+		this.publish('tan-collection:saveAtoms');
+
 	}
 
 });
 
-gi8002['/www/js/app/view/tangram/tangram-view.js'] = TangramView;
+gi2704['/www/js/app/view/tangram/tangram-view.js'] = TangramView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi8002['/www/js/lib/backbone.js'] || window.Backbone;
-var _ = gi8002['/www/js/lib/lodash.js'] || window._;
-var BaseView = gi8002['/www/js/app/view/core/base.js'] || window.BaseView;
-var HomeView = gi8002['/www/js/app/view/home/home-view.js'] || window.HomeView;
-var TangramView = gi8002['/www/js/app/view/tangram/tangram-view.js'] || window.TangramView;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
+var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
+var lang = gi2704['/www/js/services/lang.js'] || window.lang;
+var tangrams = gi2704['/www/js/app/data/tangrams.js'] || window.tangrams;
+var tanCollection = gi2704['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+
+var tanCollectionProto = tanCollection.prototype;
+
+var SectionsView = BaseView.extend({
+
+	events: {},
+
+	initialize: function (name) {
+
+		var view = this,
+			section,
+			sections;
+
+		if (name) {
+			sections = view.getPrepareSection(name);
+		} else {
+			sections = view.getPrepareSections();
+		}
+
+		view.setElement(tm.get('sections')({
+			sectionHeader: name || 'sections',
+			lang: lang,
+			sections: sections
+		}));
+
+		view.render();
+
+		return BaseView.prototype.initialize.apply(view, arguments);
+
+	},
+
+	getPrepareSections: function () {
+
+		var view = this;
+
+		// img, name
+		return tangrams.data.map(function (section) {
+			var originalName = section.name;
+			return {
+				originalName: originalName,
+				name: lang.get(originalName),
+				preview: view.createPreviewSection(section.data[0].data)
+			};
+		});
+
+	},
+
+	getPrepareSection: function (name) {
+
+		var view = this;
+
+		return _.find(tangrams.data, {name: name}).data.map(function (figure) {
+			return {
+				preview: view.createPreviewSection(figure.data)
+			};
+		});
+
+
+	},
+
+	createPreviewSection: function (triangles) {
+
+		var tempDiv = document.createElement('div'),
+			atomToTriangle = tanCollectionProto.atomToTriangle,
+			patternDeltaX,
+			patternDeltaY,
+			size = 2.5,
+			viewSizeX = size,
+			viewSizeY = size,
+			patternSizeX,
+			patternSizeY,
+			patternMaxX = -Infinity,
+			patternMaxY = -Infinity,
+			patternMinX = Infinity,
+			patternMinY = Infinity,
+			svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+			svgAttributes = {
+				x: '0px',
+				y: '0px',
+				width: size + 'px',
+				height: size + 'px',
+				viewBox: [0, 0, size, size].join(' '),
+				'class': 'section-preview-image'
+			},
+			polygonAttributes = {
+				fill: '#333',
+				stroke: '#333',
+				'stroke-width': '0.02px'
+			},
+			coordinatesToPolygon = tanCollectionProto.coordinatesToPolygon;
+
+		triangles = triangles.map(function (atom) {
+			return atomToTriangle(atom, 1);
+		});
+
+		triangles.forEach(function (triangle) {
+
+			triangle.forEach(function (xy) {
+
+				var x = xy.x,
+					y = xy.y;
+
+				if (x > patternMaxX) {
+					patternMaxX = x;
+				}
+
+				if (y > patternMaxY) {
+					patternMaxY = y;
+				}
+
+				if (x < patternMinX) {
+					patternMinX = x;
+				}
+
+				if (y < patternMinY) {
+					patternMinY = y;
+				}
+
+			});
+
+		});
+
+		patternSizeX = patternMaxX + patternMinX;
+		patternSizeY = patternMaxY + patternMinY;
+
+		patternDeltaX = (viewSizeX - patternSizeX) / 2;
+		patternDeltaY = (viewSizeY - patternSizeY) / 2;
+
+		triangles = triangles.map(function (triangle) {
+			return triangle.map(function (xy) {
+				return {
+					x: xy.x + patternDeltaX,
+					y: xy.y + patternDeltaY
+				}
+			});
+		});
+
+		Object.keys(svgAttributes).forEach(function (key) {
+			var attr = document.createAttribute(key);
+			attr.value = svgAttributes[key];
+			svg.setAttributeNode(attr);
+		});
+
+		triangles.forEach(function (triangle) {
+			var polygon = coordinatesToPolygon(triangle, polygonAttributes);
+			svg.appendChild(polygon);
+		});
+
+		tempDiv.appendChild(svg);
+
+		return {
+			svg: svg,
+			svgText: tempDiv.innerHTML
+		};
+
+	}
+
+});
+
+gi2704['/www/js/app/view/sections/sections-view.js'] = SectionsView;
+}());
+(function () {
+'use strict';
+/*global window */
+
+var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
+var HomeView = gi2704['/www/js/app/view/home/home-view.js'] || window.HomeView;
+var TangramView = gi2704['/www/js/app/view/tangram/tangram-view.js'] || window.TangramView;
+var SectionsView = gi2704['/www/js/app/view/sections/sections-view.js'] || window.SectionsView;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	router,
@@ -10295,15 +11460,32 @@ var win = window,
 
 		routes: {
 			'': 'home',
-			'tangram': 'tangram'
+			'sections/:name': 'section',
+			'sections': 'sections',
+			'tangram': 'tangram',
+			'tangram-constructor': 'tangramConstructor'
 		},
 
 		home: function () {
 			new HomeView();
 		},
 
+		sections: function () {
+			new SectionsView();
+		},
+
+		section: function (name) {
+			new SectionsView(name);
+		},
+
 		tangram: function () {
 			new TangramView();
+		},
+
+		tangramConstructor: function () {
+			new TangramView({
+				mode: 'constructor'
+			});
 		},
 
 		url: {
@@ -10392,20 +11574,20 @@ router.subscribe('route-to-popup', router.routeToPopup);
 router.subscribe('router-hide-popup', router.hidePopup);
 router.subscribe('navigate', router.navigate);
 
-gi8002['/www/js/app/router/router.js'] = router;
+gi2704['/www/js/app/router/router.js'] = router;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi8002['/www/js/app/view/core/base.js'] || window.BaseView;
-var $ = gi8002['/www/js/lib/jbone.js'] || window.$;
-var _ = gi8002['/www/js/lib/lodash.js'] || window._;
-var lang = gi8002['/www/js/services/lang.js'] || window.lang;
-var info = gi8002['/www/js/services/info.js'] || window.info;
-var device = gi8002['/www/js/services/device.js'] || window.device;
-var tm = gi8002['/www/js/services/template-master.js'] || window.tm;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
+var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
+var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var lang = gi2704['/www/js/services/lang.js'] || window.lang;
+var info = gi2704['/www/js/services/info.js'] || window.info;
+var device = gi2704['/www/js/services/device.js'] || window.device;
+var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	HintView,
@@ -10510,7 +11692,7 @@ HintView = BaseView.extend({
 		view.extendFromObj(data);
 		view.extendFromObj(hintsMap[hintName]);
 
-		view.setElement(tm.tmplFn.hint({
+		view.setElement(tm.get('hint')({
 			text: lang.get('hint')[hintName]
 		}));
 
@@ -10809,19 +11991,19 @@ mediator.installTo(hintMaster);
 
 hintMaster.subscribe('showHint', hintMaster.showHint);
 
-gi8002['/www/js/app/view/core/hint.js'] = hintMaster;
+gi2704['/www/js/app/view/core/hint.js'] = hintMaster;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi8002['/www/js/app/view/core/base.js'] || window.BaseView;
-var $ = gi8002['/www/js/lib/jbone.js'] || window.$;
-var _ = gi8002['/www/js/lib/lodash.js'] || window._;
-var sm = gi8002['/www/js/sound/sound-master.js'] || window.sm;
-var tm = gi8002['/www/js/services/template-master.js'] || window.tm;
-var info = gi8002['/www/js/services/info.js'] || window.info;
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
+var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
+var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var sm = gi2704['/www/js/sound/sound-master.js'] || window.sm;
+var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
+var info = gi2704['/www/js/services/info.js'] || window.info;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	PopupView,
@@ -10851,7 +12033,7 @@ PopupView = BaseView.extend({
 
 		view.extendFromObj(data); // name, parentView, data(objToView)
 
-		view.setElement(tm.tmplFn['popup-wrapper']());
+		view.setElement(tm.get('popup-wrapper')());
 
 		if (data.cssClass) {
 			view.$el.addClass(data.cssClass);
@@ -10929,7 +12111,7 @@ PopupView = BaseView.extend({
 			append$el = view.get('append$el'),
 			data = view.get('data') || {},
 			sound = view.get('sound'),
-			$content = $(tm.tmplFn[view.get('name')](data)),
+			$content = $(tm.get( [view.get('name')](data) )),
 			$container = view.$el.find(view.selectors.popupContainer),
 			onShow = view.get('onShow'),
 			context;
@@ -11006,44 +12188,44 @@ mediator.installTo(popupMaster);
 
 popupMaster.subscribe('showPopup', popupMaster.showPopup);
 
-gi8002['/www/js/app/view/core/popup.js'] = popupMaster;
+gi2704['/www/js/app/view/core/popup.js'] = popupMaster;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var log = gi8002['/www/js/services/log.js'] || window.log;
+var log = gi2704['/www/js/services/log.js'] || window.log;
 
-var mediator = gi8002['/www/js/services/mediator.js'] || window.mediator;
+var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
 
 // init all librares
-var polyfillClassList = gi8002['/www/js/lib/polyfill-class-list.js'] || window.polyfillClassList;
-var shim = gi8002['/www/js/lib/shim.js'] || window.shim;
-var shimES5 = gi8002['/www/js/lib/shim-es5.js'] || window.shimES5;
-var shamES5 = gi8002['/www/js/lib/sham-es5.js'] || window.shamES5;
-var _ = gi8002['/www/js/lib/lodash.js'] || window._;
-var $ = gi8002['/www/js/lib/jbone.js'] || window.$;
-var Deferred = gi8002['/www/js/lib/deferred.js'] || window.Deferred;
-var Backbone = gi8002['/www/js/lib/backbone.js'] || window.Backbone;
-var fastclick = gi8002['/www/js/lib/fastclick.js'] || window.fastclick;
-var doT = gi8002['/www/js/lib/dot.js'] || window.doT;
+var polyfillClassList = gi2704['/www/js/lib/polyfill-class-list.js'] || window.polyfillClassList;
+var shim = gi2704['/www/js/lib/shim.js'] || window.shim;
+var shimES5 = gi2704['/www/js/lib/shim-es5.js'] || window.shimES5;
+var shamES5 = gi2704['/www/js/lib/sham-es5.js'] || window.shamES5;
+var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
+var Deferred = gi2704['/www/js/lib/deferred.js'] || window.Deferred;
+var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
+var fastclick = gi2704['/www/js/lib/fastclick.js'] || window.fastclick;
+var doT = gi2704['/www/js/lib/dot.js'] || window.doT;
 
 // init all services
-var info = gi8002['/www/js/services/info.js'] || window.info;
-var device = gi8002['/www/js/services/device.js'] || window.device;
-var androidAds = gi8002['/www/js/services/android-ads.js'] || window.androidAds;
-var lang = gi8002['/www/js/services/lang.js'] || window.lang;
-var tm = gi8002['/www/js/services/template-master.js'] || window.tm;
-var util = gi8002['/www/js/services/util.js'] || window.util;
+var info = gi2704['/www/js/services/info.js'] || window.info;
+var device = gi2704['/www/js/services/device.js'] || window.device;
+var androidAds = gi2704['/www/js/services/android-ads.js'] || window.androidAds;
+var lang = gi2704['/www/js/services/lang.js'] || window.lang;
+var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
+var util = gi2704['/www/js/services/util.js'] || window.util;
 
 // init sound players
-var sm = gi8002['/www/js/sound/sound-master.js'] || window.sm;
+var sm = gi2704['/www/js/sound/sound-master.js'] || window.sm;
 
-var router = gi8002['/www/js/app/router/router.js'] || window.router;
+var router = gi2704['/www/js/app/router/router.js'] || window.router;
 
-var BaseView = gi8002['/www/js/app/view/core/base.js'] || window.BaseView;
-var hintMaster = gi8002['/www/js/app/view/core/hint.js'] || window.hintMaster;
-var popupMaster = gi8002['/www/js/app/view/core/popup.js'] || window.popupMaster;
+var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
+var hintMaster = gi2704['/www/js/app/view/core/hint.js'] || window.hintMaster;
+var popupMaster = gi2704['/www/js/app/view/core/popup.js'] || window.popupMaster;
 
 // todo: - test - enable fast click
 new FastClick(window.document.body); // test it decide
