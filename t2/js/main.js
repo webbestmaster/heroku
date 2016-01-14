@@ -1,4 +1,4 @@
-(function (gi2704) {
+(function (gi6206) {
 (function () {
 'use strict';
 /*global console */
@@ -50,7 +50,7 @@ window.onerror = function (errorMsg, url, lineNumber) {
 
 };
 
-gi2704['/www/js/services/log.js'] = log;
+gi6206['/www/js/services/log.js'] = log;
 
 
 }());
@@ -58,7 +58,7 @@ gi2704['/www/js/services/log.js'] = log;
 'use strict';
 /*global window */
 
-var log = gi2704['/www/js/services/log.js'] || window.log;
+var log = gi6206['/www/js/services/log.js'] || window.log;
 
 var mediator;
 
@@ -138,7 +138,7 @@ mediator = {
 	}
 };
 
-gi2704['/www/js/services/mediator.js'] = mediator;
+gi6206['/www/js/services/mediator.js'] = mediator;
 
 }());
 (function () {
@@ -7465,7 +7465,7 @@ info = {
 
 info.init();
 
-gi2704['/www/js/services/info.js'] = info;
+gi6206['/www/js/services/info.js'] = info;
 
 
 }());
@@ -7473,9 +7473,9 @@ gi2704['/www/js/services/info.js'] = info;
 'use strict';
 /*global window */
 
-var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
-var log = gi2704['/www/js/services/log.js'] || window.log;
+var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var log = gi6206['/www/js/services/log.js'] || window.log;
 
 var win = window,
 	doc = win.document,
@@ -7928,13 +7928,13 @@ var win = window,
 
 device = new Device();
 
-gi2704['/www/js/services/device.js'] = device;
+gi6206['/www/js/services/device.js'] = device;
 }());
 (function () {
 'use strict';
 /*global window, Date */
 
-var info = gi2704['/www/js/services/info.js'] || window.info;
+var info = gi6206['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	androidAds = {
@@ -7980,7 +7980,7 @@ var win = window,
 
 	androidAds.init();
 
-gi2704['/www/js/services/android-ads.js'] = androidAds;
+gi6206['/www/js/services/android-ads.js'] = androidAds;
 
 }());
 (function () {
@@ -8019,7 +8019,7 @@ var en = {
 
 };
 
-gi2704['/www/js/i18n/en.js'] = en;
+gi6206['/www/js/i18n/en.js'] = en;
 }());
 (function () {
 'use strict';
@@ -8048,15 +8048,15 @@ var ru = {
 
 };
 
-gi2704['/www/js/i18n/ru.js'] = ru;
+gi6206['/www/js/i18n/ru.js'] = ru;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var info = gi2704['/www/js/services/info.js'] || window.info;
-var en = gi2704['/www/js/i18n/en.js'] || window.en;
-var ru = gi2704['/www/js/i18n/ru.js'] || window.ru;
+var info = gi6206['/www/js/services/info.js'] || window.info;
+var en = gi6206['/www/js/i18n/en.js'] || window.en;
+var ru = gi6206['/www/js/i18n/ru.js'] || window.ru;
 
 var lang = {
 
@@ -8076,7 +8076,7 @@ var lang = {
 
 lang.set(info.get('language'));
 
-gi2704['/www/js/services/lang.js'] = lang;
+gi6206['/www/js/services/lang.js'] = lang;
 
 
 
@@ -8085,7 +8085,7 @@ gi2704['/www/js/services/lang.js'] = lang;
 'use strict';
 /*global window */
 
-var doT = gi2704['/www/js/lib/dot.js'] || window.doT;
+var doT = gi6206['/www/js/lib/dot.js'] || window.doT;
 
 var doc = window.document,
 	templateMaster = {
@@ -8122,7 +8122,7 @@ var doc = window.document,
 
 templateMaster.init();
 
-gi2704['/www/js/services/template-master.js'] = templateMaster;
+gi6206['/www/js/services/template-master.js'] = templateMaster;
 
 
 
@@ -8199,7 +8199,7 @@ var win = window,
 
 	};
 
-gi2704['/www/js/services/util.js'] = util;
+gi6206['/www/js/services/util.js'] = util;
 }());
 (function () {
 'use strict';
@@ -8242,7 +8242,7 @@ var win = window,
 
 };
 
-gi2704['/www/js/sound/player-android.js'] = androidPlayer;
+gi6206['/www/js/sound/player-android.js'] = androidPlayer;
 }());
 (function () {
 'use strict';
@@ -8299,7 +8299,7 @@ var win = window,
 
 	};
 
-gi2704['/www/js/sound/player-ios.js'] = iosPlayer;
+gi6206['/www/js/sound/player-ios.js'] = iosPlayer;
 
 
 }());
@@ -8307,7 +8307,7 @@ gi2704['/www/js/sound/player-ios.js'] = iosPlayer;
 'use strict';
 /*global window */
 
-var info = gi2704['/www/js/services/info.js'] || window.info;
+var info = gi6206['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	webPlayer = {
@@ -8381,17 +8381,17 @@ var win = window,
 
 };
 
-gi2704['/www/js/sound/player-web.js'] = webPlayer;
+gi6206['/www/js/sound/player-web.js'] = webPlayer;
 
 }());
 (function () {
 'use strict';
 /*global window */
 
-var androidPlayer = gi2704['/www/js/sound/player-android.js'] || window.androidPlayer;
-var iosPlayer = gi2704['/www/js/sound/player-ios.js'] || window.iosPlayer;
-var webPlayer = gi2704['/www/js/sound/player-web.js'] || window.webPlayer;
-var info = gi2704['/www/js/services/info.js'] || window.info;
+var androidPlayer = gi6206['/www/js/sound/player-android.js'] || window.androidPlayer;
+var iosPlayer = gi6206['/www/js/sound/player-ios.js'] || window.iosPlayer;
+var webPlayer = gi6206['/www/js/sound/player-web.js'] || window.webPlayer;
+var info = gi6206['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	soundMaster = {
@@ -8529,7 +8529,7 @@ var win = window,
 
 soundMaster.init();
 
-gi2704['/www/js/sound/sound-master.js'] = soundMaster;
+gi6206['/www/js/sound/sound-master.js'] = soundMaster;
 
 
 }());
@@ -8537,16 +8537,16 @@ gi2704['/www/js/sound/sound-master.js'] = soundMaster;
 'use strict';
 /*global window */
 
-var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
-var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
-var info = gi2704['/www/js/services/info.js'] || window.info;
-//var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
-var util = gi2704['/www/js/services/util.js'] || window.util;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
-var sm = gi2704['/www/js/sound/sound-master.js'] || window.sm;
-var lang = gi2704['/www/js/services/lang.js'] || window.lang;
-var device = gi2704['/www/js/services/device.js'] || window.device;
+var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
+var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var info = gi6206['/www/js/services/info.js'] || window.info;
+//var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
+var util = gi6206['/www/js/services/util.js'] || window.util;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var sm = gi6206['/www/js/sound/sound-master.js'] || window.sm;
+var lang = gi6206['/www/js/services/lang.js'] || window.lang;
+var device = gi6206['/www/js/services/device.js'] || window.device;
 
 var win = window,
 	doc = win.document,
@@ -8758,17 +8758,23 @@ var win = window,
 			view.remove();
 			view.unbind();
 
-			Backbone.View.prototype.remove.call(view);
+
+
+			return Backbone.View.prototype.remove.call(view);
 
 		},
 
 		hide: function () {
+
+			console.log('base view hide');
 
 			var view = this,
 				$el = view.$el,
 				animationEnd = info.get('animationEnd', true),
 				isScreenAnimation = info.get('screenAnimation') === 'on',
 				deferred = $.Deferred();
+
+			view.empty();
 
 			view.unsubscribe();
 
@@ -9105,7 +9111,17 @@ var win = window,
 
 		},
 		get: function (key) {
+
 			return this.attr[key];
+
+		},
+
+		empty: function () {
+
+			this.attr = {};
+
+			return this;
+
 		},
 
 		extendFromObj: function (data) {
@@ -9228,15 +9244,15 @@ var win = window,
 
 	});
 
-gi2704['/www/js/app/view/core/base.js'] = BaseView;
+gi6206['/www/js/app/view/core/base.js'] = BaseView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
-var lang = gi2704['/www/js/services/lang.js'] || window.lang;
+var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
+var lang = gi6206['/www/js/services/lang.js'] || window.lang;
 
 var HomeView = BaseView.extend({
 
@@ -9261,25 +9277,25 @@ var HomeView = BaseView.extend({
 
 });
 
-gi2704['/www/js/app/view/home/home-view.js'] = HomeView;
+gi6206['/www/js/app/view/home/home-view.js'] = HomeView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
 
 var Tan = Backbone.Model.extend({
 
 	styles: {
-		stroke: '#0c0',
+		stroke: '#fff',
 		'stroke-width': '1px',
 		'fill-opacity': 1
 	},
 
 	activeStyles: {
-		stroke: '#c00',
+		stroke: '#fff',
 		'stroke-width': '1px',
 		'fill-opacity': 0.5
 	},
@@ -9575,10 +9591,134 @@ var Tan = Backbone.Model.extend({
 			tanNode = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
 			tan.set('node', tanNode);
 			tan.setStyles();
+			tan.initPositionIn(drawNode);
 			drawNode.appendChild(tanNode);
 		}
 
 		tanNode.setAttribute('points', polygonCoordinates);
+
+	},
+
+	getBoundingCoordinates: function () {
+
+		var tan = this,
+			maxX = -Infinity,
+			maxY = -Infinity,
+			minX = Infinity,
+			minY = Infinity;
+
+		tan.getCoordinates().forEach(function (xy) {
+
+			var x = xy.x,
+				y = xy.y;
+
+			if (x > maxX) {
+				maxX = x;
+			}
+
+			if (y > maxY) {
+				maxY = y;
+			}
+
+			if (x < minX) {
+				minX = x;
+			}
+
+			if (y < minY) {
+				minY = y;
+			}
+
+		});
+
+		return {
+			minX: minX,
+			minY: minY,
+			maxX: maxX,
+			maxY: maxY,
+			width: maxX - minX,
+			height: maxY - minY
+		}
+
+	},
+
+	initPositionIn: function (drawNode) {
+
+		var tan = this,
+			tanKey = tan.get('key'),
+			rotate,
+			coordinates,
+			margin = 10,
+			boxWidth = parseInt(drawNode.getAttribute('width'), 10),
+			boxHeight = parseInt(drawNode.getAttribute('height'), 10);
+
+		rotate = 0;
+
+		switch (tanKey) {
+
+			case 'triangleBig-1':
+				tan.set('rotate', 45);
+				coordinates = tan.getBoundingCoordinates();
+				tan.move({
+					dx: margin - coordinates.minX,
+					dy: boxHeight - coordinates.maxY - margin
+				});
+				break;
+
+			case 'triangleBig-2':
+				tan.set('rotate', -135);
+				coordinates = tan.getBoundingCoordinates();
+				tan.move({
+					dx: boxWidth - coordinates.maxX - margin,
+					dy: boxHeight - coordinates.maxY - margin
+				});
+				break;
+
+			case 'triangleMedium':
+				tan.set('rotate', -90);
+				coordinates = tan.getBoundingCoordinates();
+				tan.move({
+					dx: boxWidth - coordinates.maxX - margin,
+					dy: boxHeight / 2 - coordinates.maxY + coordinates.height / 2
+				});
+				break;
+
+			case 'triangleSmall-1':
+				tan.set('rotate', -45);
+				coordinates = tan.getBoundingCoordinates();
+				tan.move({
+					dx: boxWidth - coordinates.maxX - margin,
+					dy: margin - coordinates.minY
+				});
+				break;
+
+			case 'triangleSmall-2':
+				tan.set('rotate', -45);
+				coordinates = tan.getBoundingCoordinates();
+				tan.move({
+					dx: margin - coordinates.minX,
+					dy: margin - coordinates.minY
+				});
+				break;
+
+			case 'square':
+				//tan.set('rotate', 45);
+				coordinates = tan.getBoundingCoordinates();
+				tan.move({
+					dx: boxWidth / 2 - coordinates.maxX + coordinates.width / 2,
+					dy: boxHeight - coordinates.maxY - margin
+				});
+				break;
+
+			case 'parallelogram':
+				//tan.set('rotate', -90);
+				coordinates = tan.getBoundingCoordinates();
+				tan.move({
+					dx: margin - coordinates.minX,
+					dy: boxHeight / 2 - coordinates.maxY + coordinates.height / 2
+				});
+				break;
+
+		}
 
 	},
 
@@ -9653,13 +9793,13 @@ var Tan = Backbone.Model.extend({
 		Object.keys(styles).forEach(function (key) {
 			styleStr += key + ':' + styles[key] + ';';
 		});
-/*
+		/*
 
-		Object.keys(styles).forEach(function (key) {
-			var value = (key === 'stroke-width') ? styles[key] * tan.get('scale') : styles[key];
-			styleStr += key + ':' + value + ';';
-		});
-*/
+		 Object.keys(styles).forEach(function (key) {
+		 var value = (key === 'stroke-width') ? styles[key] * tan.get('scale') : styles[key];
+		 styleStr += key + ':' + value + ';';
+		 });
+		 */
 
 		attr.value = styleStr;
 		node.setAttributeNode(attr);
@@ -9800,7 +9940,7 @@ var Tan = Backbone.Model.extend({
 			rightAngle = triangle[0],   // first angle is 90deg - see tan.divideTriangle
 			rightAngleX = rightAngle.x,
 			rightAngleY = rightAngle.y,
-			midCoordinate = tan.getAlignCoordinatesOfLine(triangle[1],  triangle[2], 2)[0],
+			midCoordinate = tan.getAlignCoordinatesOfLine(triangle[1], triangle[2], 2)[0],
 			midX = midCoordinate.x,
 			midY = midCoordinate.y,
 			angle = Math.atan2(rightAngleY - midY, rightAngleX - midX) * 180 / Math.PI;
@@ -9924,11 +10064,26 @@ var Tan = Backbone.Model.extend({
 			[coordinates[1], coordinates[2], coordinates[0]]
 		];
 
+	},
+
+	destroy: function () {
+
+		console.log('tan destroy');
+
+		var tan = this,
+			node = tan.get('node');
+
+		tan.unsubscribe();
+
+		node.parentNode.removeChild(node);
+
+		return Backbone.Model.prototype.destroy.apply(tan, arguments);
+
 	}
 
 });
 
-gi2704['/www/js/app/view/tangram/models/tan.js'] = Tan;
+gi6206['/www/js/app/view/tangram/models/tan.js'] = Tan;
 }());
 (function () {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
@@ -10096,20 +10251,20 @@ if (typeof define == 'function' && define.amd) define([], function() { return Sh
 //
 //console.log(sha1);
 
-gi2704['/www/js/lib/sha1.js'] = Sha1;
+gi6206['/www/js/lib/sha1.js'] = Sha1;
 
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
-var Tan = gi2704['/www/js/app/view/tangram/models/tan.js'] || window.Tan;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
-var device = gi2704['/www/js/services/device.js'] || window.device;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
-var log = gi2704['/www/js/services/log.js'] || window.log;
-var sha1 = gi2704['/www/js/lib/sha1.js'] || window.sha1;
+var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
+var Tan = gi6206['/www/js/app/view/tangram/models/tan.js'] || window.Tan;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var device = gi6206['/www/js/services/device.js'] || window.device;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var log = gi6206['/www/js/services/log.js'] || window.log;
+var sha1 = gi6206['/www/js/lib/sha1.js'] || window.sha1;
 
 var tansInfo = {
 	'triangleBig-1': {
@@ -10202,6 +10357,14 @@ var TanCollection = Backbone.Collection.extend({
 	getData: function (key) {
 
 		return this.attr[key];
+
+	},
+
+	emptyData: function () {
+
+		this.attr = {};
+
+		return this;
 
 	},
 
@@ -10357,8 +10520,8 @@ var TanCollection = Backbone.Collection.extend({
 
 		return tangramAtoms.map(function (xya) {
 			return [
-				(Math.round((xya[0] - minX) * 1e8) / 1e8) || 0,
-				(Math.round((xya[1] - minY) * 1e8) / 1e8) || 0,
+				(Math.round((xya[0] - minX) * 1e6) / 1e6) || 0,
+				(Math.round((xya[1] - minY) * 1e6) / 1e6) || 0,
 				xya[2]
 			];
 		});
@@ -10569,7 +10732,8 @@ var TanCollection = Backbone.Collection.extend({
 					count: len,
 					scale: this.getData('scale'),
 					type: data.type,
-					patternId: data.patternId || null
+					patternId: data.patternId || null,
+					key: key
 				});
 			}
 		}, this);
@@ -10726,8 +10890,7 @@ var TanCollection = Backbone.Collection.extend({
 
 	coordinatesToPolygon: function (coordinates, stylesArg) {
 
-		var collection = this,
-			polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon'),
+		var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon'),
 			styles = stylesArg || patternInfo.polygon.styles,
 			attributes = patternInfo.polygon.attributes,
 			styleStr = '',
@@ -10784,21 +10947,43 @@ var TanCollection = Backbone.Collection.extend({
 			}
 		];
 
+	},
+
+	destroy: function () {
+
+		var collection = this,
+			rotater = collection.getData('rotater'),
+			tan;
+
+		rotater.destroy();
+
+		collection.unsubscribe();
+
+		collection.emptyData();
+
+		tan = collection.first();
+		while (tan) {
+			tan.destroy();
+			tan = collection.first();
+		}
+
+		collection.reset();
+
 	}
 
 });
 
-gi2704['/www/js/app/view/tangram/models/tan-collection.js'] = TanCollection;
+gi6206['/www/js/app/view/tangram/models/tan-collection.js'] = TanCollection;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
-var info = gi2704['/www/js/services/info.js'] || window.info;
-var log = gi2704['/www/js/services/log.js'] || window.log;
+var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var info = gi6206['/www/js/services/info.js'] || window.info;
+var log = gi6206['/www/js/services/log.js'] || window.log;
 
 var RotaterModel = Backbone.Model.extend({
 
@@ -11017,12 +11202,24 @@ var RotaterModel = Backbone.Model.extend({
 
 		tan.reDraw();
 
+	},
+
+	destroy: function () {
+
+		var rotater = this;
+
+		rotater.unsubscribe();
+
+		rotater.get('$rotater').off().remove();
+
+		return Backbone.Model.prototype.destroy.apply(rotater, arguments);
+
 	}
 
 });
 
 
-gi2704['/www/js/app/view/tangram/rotater/rotater-model.js'] = RotaterModel;
+gi6206['/www/js/app/view/tangram/rotater/rotater-model.js'] = RotaterModel;
 }());
 (function () {
 'use strict';
@@ -11055,14 +11252,14 @@ var section = {
 
 };
 
-gi2704['/www/js/app/data/sections/person.js'] = section;
+gi6206['/www/js/app/data/sections/person.js'] = section;
 
 }());
 (function () {
 'use strict';
 /*global window */
 
-var person = gi2704['/www/js/app/data/sections/person.js'] || window.person;
+var person = gi6206['/www/js/app/data/sections/person.js'] || window.person;
 
 var tangrams = {
 
@@ -11097,19 +11294,24 @@ var tangrams = {
 
 };
 
-gi2704['/www/js/app/data/tangrams.js'] = tangrams;
+gi6206['/www/js/app/data/tangrams.js'] = tangrams;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
-var TanCollection = gi2704['/www/js/app/view/tangram/models/tan-collection.js'] || window.TanCollection;
-var RotaterModel = gi2704['/www/js/app/view/tangram/rotater/rotater-model.js'] || window.RotaterModel;
-var device = gi2704['/www/js/services/device.js'] || window.device;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
-var tangrams = gi2704['/www/js/app/data/tangrams.js'] || window.tangrams;
+var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
+var TanCollection = gi6206['/www/js/app/view/tangram/models/tan-collection.js'] || window.TanCollection;
+var RotaterModel = gi6206['/www/js/app/view/tangram/rotater/rotater-model.js'] || window.RotaterModel;
+var device = gi6206['/www/js/services/device.js'] || window.device;
+var log = gi6206['/www/js/services/log.js'] || window.log;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var tangrams = gi6206['/www/js/app/data/tangrams.js'] || window.tangrams;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var tanCollection = gi6206['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
+
+var tanCollectionProto = tanCollection.prototype;
 
 var TangramView = BaseView.extend({
 
@@ -11140,7 +11342,12 @@ var TangramView = BaseView.extend({
 				sizeX: sizeX,
 				sizeY: sizeY
 			},
-			patternSvg;
+			patternSvg,
+			name = data.name || 'person',
+			index = data.index || 0,
+			pattern = _.find(tangrams.data, {name: name}).data[index];
+
+		log(mode);
 
 		view.set('mode', mode);
 
@@ -11150,7 +11357,7 @@ var TangramView = BaseView.extend({
 		tanCollection.setData(viewData);
 
 		// get test tangram
-		var pattern = tangrams.data[0].data[1];
+		//var pattern = tangrams.data[0].data[0];
 
 		scale = view.detectScale(pattern);
 
@@ -11159,7 +11366,7 @@ var TangramView = BaseView.extend({
 			size: scale
 		}));
 
-		view.bindEventListeners();
+		//view.bindEventListeners();
 
 		tanCollection.setScale(scale);
 		tanCollection.initPattern(pattern);
@@ -11182,6 +11389,20 @@ var TangramView = BaseView.extend({
 
 	},
 
+	hide: function () {
+
+		var view = this,
+			tanCollection = view.get('tan-collection');
+
+		tanCollection.destroy();
+
+		// base hide
+
+		BaseView.prototype.hide.apply(view, arguments);
+
+	},
+
+/*
 	bindEventListeners: function () {
 
 		var view = this;
@@ -11189,7 +11410,9 @@ var TangramView = BaseView.extend({
 		//view.subscribe('tangram-view:drawPattern', view.drawPattern);
 
 	},
+*/
 
+/*
 	drawPattern: function (data) {
 
 		var view = this,
@@ -11200,6 +11423,7 @@ var TangramView = BaseView.extend({
 		console.log(triangles);
 
 	},
+*/
 
 	detectScale: function (pattern) {
 
@@ -11213,15 +11437,20 @@ var TangramView = BaseView.extend({
 			viewQ = sizeX / sizeY,
 			patternQ,
 			atoms = pattern.data,
-			maxPatternX = -Infinity,
-			maxPatternY = -Infinity,
+			patternMaxX = -Infinity,
+			patternMaxY = -Infinity,
+			patternMinX = Infinity,
+			patternMinY = Infinity,
+			patterSizeX,
+			patterSizeY,
 			scale,
+			atomToTriangle = tanCollectionProto.atomToTriangle,
 			minScreenSize = device.get('minScreenSize'),
 			spaceSize = (maxX - minX) * (maxY - minY);
 
 		if (view.get('mode') === 'constructor') {
 
-			scale = Math.round(Math.sqrt(spaceSize / minScreenSize) * 130);
+			scale = Math.round(Math.sqrt(spaceSize / minScreenSize) * 150);
 
 			view.set('scale', scale);
 
@@ -11231,29 +11460,48 @@ var TangramView = BaseView.extend({
 
 		atoms.forEach(function (atom) {
 
-			var x = atom[0],
-				y = atom[1];
+			var triangle = atomToTriangle(atom, 1);
 
-			if (x > maxPatternX) {
-				maxPatternX = x;
-			}
+			triangle.forEach(function (xy) {
 
-			if (y > maxPatternY) {
-				maxPatternY = y;
-			}
+				var x = xy.x,
+					y = xy.y;
+
+				if (x > patternMaxX) {
+					patternMaxX = x;
+				}
+
+				if (y > patternMaxY) {
+					patternMaxY = y;
+				}
+
+				if (x < patternMinX) {
+					patternMinX = x;
+				}
+
+				if (y < patternMinY) {
+					patternMinY = y;
+				}
+
+			});
 
 		});
+
+		patterSizeX = patternMaxX - patternMinX;
+		patterSizeY = patternMaxY - patternMinY;
 
 		view.get('tan-collection').setData({
-			patternWidth: maxPatternX,
-			patternHeight: maxPatternY
+			patternWidth: patterSizeX,
+			patternHeight: patterSizeY
 		});
 
-		patternQ = maxPatternX / maxPatternY;
+		patternQ = patterSizeX / patterSizeY;
 
-		scale = (patternQ > viewQ) ? (sizeX / maxPatternX) : (sizeY / maxPatternY);
+		scale = (patternQ > viewQ) ? (sizeX / patterSizeX) : (sizeY / patterSizeY);
 
-		scale = Math.round(scale * 0.66);
+		scale = Math.round(scale * 0.75);
+
+		console.log(scale * 0.75);
 
 		view.set('scale', scale);
 
@@ -11269,18 +11517,18 @@ var TangramView = BaseView.extend({
 
 });
 
-gi2704['/www/js/app/view/tangram/tangram-view.js'] = TangramView;
+gi6206['/www/js/app/view/tangram/tangram-view.js'] = TangramView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
-var lang = gi2704['/www/js/services/lang.js'] || window.lang;
-var tangrams = gi2704['/www/js/app/data/tangrams.js'] || window.tangrams;
-var tanCollection = gi2704['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
+var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
+var lang = gi6206['/www/js/services/lang.js'] || window.lang;
+var tangrams = gi6206['/www/js/app/data/tangrams.js'] || window.tangrams;
+var tanCollection = gi6206['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
 
 var tanCollectionProto = tanCollection.prototype;
 
@@ -11291,19 +11539,19 @@ var SectionsView = BaseView.extend({
 	initialize: function (name) {
 
 		var view = this,
-			section,
-			sections;
+			items;
 
 		if (name) {
-			sections = view.getPrepareSection(name);
+			items = view.getPrepareSection(name);
 		} else {
-			sections = view.getPrepareSections();
+			items = view.getPrepareSections();
 		}
 
 		view.setElement(tm.get('sections')({
 			sectionHeader: name || 'sections',
+			originalName: name || 'sections',
 			lang: lang,
-			sections: sections
+			items: items
 		}));
 
 		view.render();
@@ -11440,19 +11688,19 @@ var SectionsView = BaseView.extend({
 
 });
 
-gi2704['/www/js/app/view/sections/sections-view.js'] = SectionsView;
+gi6206['/www/js/app/view/sections/sections-view.js'] = SectionsView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
-var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
-var HomeView = gi2704['/www/js/app/view/home/home-view.js'] || window.HomeView;
-var TangramView = gi2704['/www/js/app/view/tangram/tangram-view.js'] || window.TangramView;
-var SectionsView = gi2704['/www/js/app/view/sections/sections-view.js'] || window.SectionsView;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
+var HomeView = gi6206['/www/js/app/view/home/home-view.js'] || window.HomeView;
+var TangramView = gi6206['/www/js/app/view/tangram/tangram-view.js'] || window.TangramView;
+var SectionsView = gi6206['/www/js/app/view/sections/sections-view.js'] || window.SectionsView;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	router,
@@ -11460,9 +11708,10 @@ var win = window,
 
 		routes: {
 			'': 'home',
+			'sections/:name/:index': 'tangram',
 			'sections/:name': 'section',
 			'sections': 'sections',
-			'tangram': 'tangram',
+			//'tangram': 'tangram',
 			'tangram-constructor': 'tangramConstructor'
 		},
 
@@ -11478,8 +11727,11 @@ var win = window,
 			new SectionsView(name);
 		},
 
-		tangram: function () {
-			new TangramView();
+		tangram: function (name, index) {
+			new TangramView({
+				name: name,
+				index: index
+			});
 		},
 
 		tangramConstructor: function () {
@@ -11574,20 +11826,20 @@ router.subscribe('route-to-popup', router.routeToPopup);
 router.subscribe('router-hide-popup', router.hidePopup);
 router.subscribe('navigate', router.navigate);
 
-gi2704['/www/js/app/router/router.js'] = router;
+gi6206['/www/js/app/router/router.js'] = router;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
-var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
-var lang = gi2704['/www/js/services/lang.js'] || window.lang;
-var info = gi2704['/www/js/services/info.js'] || window.info;
-var device = gi2704['/www/js/services/device.js'] || window.device;
-var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
+var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var lang = gi6206['/www/js/services/lang.js'] || window.lang;
+var info = gi6206['/www/js/services/info.js'] || window.info;
+var device = gi6206['/www/js/services/device.js'] || window.device;
+var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	HintView,
@@ -11991,19 +12243,19 @@ mediator.installTo(hintMaster);
 
 hintMaster.subscribe('showHint', hintMaster.showHint);
 
-gi2704['/www/js/app/view/core/hint.js'] = hintMaster;
+gi6206['/www/js/app/view/core/hint.js'] = hintMaster;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
-var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
-var sm = gi2704['/www/js/sound/sound-master.js'] || window.sm;
-var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
-var info = gi2704['/www/js/services/info.js'] || window.info;
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
+var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var sm = gi6206['/www/js/sound/sound-master.js'] || window.sm;
+var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
+var info = gi6206['/www/js/services/info.js'] || window.info;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	PopupView,
@@ -12188,44 +12440,44 @@ mediator.installTo(popupMaster);
 
 popupMaster.subscribe('showPopup', popupMaster.showPopup);
 
-gi2704['/www/js/app/view/core/popup.js'] = popupMaster;
+gi6206['/www/js/app/view/core/popup.js'] = popupMaster;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var log = gi2704['/www/js/services/log.js'] || window.log;
+var log = gi6206['/www/js/services/log.js'] || window.log;
 
-var mediator = gi2704['/www/js/services/mediator.js'] || window.mediator;
+var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
 
 // init all librares
-var polyfillClassList = gi2704['/www/js/lib/polyfill-class-list.js'] || window.polyfillClassList;
-var shim = gi2704['/www/js/lib/shim.js'] || window.shim;
-var shimES5 = gi2704['/www/js/lib/shim-es5.js'] || window.shimES5;
-var shamES5 = gi2704['/www/js/lib/sham-es5.js'] || window.shamES5;
-var _ = gi2704['/www/js/lib/lodash.js'] || window._;
-var $ = gi2704['/www/js/lib/jbone.js'] || window.$;
-var Deferred = gi2704['/www/js/lib/deferred.js'] || window.Deferred;
-var Backbone = gi2704['/www/js/lib/backbone.js'] || window.Backbone;
-var fastclick = gi2704['/www/js/lib/fastclick.js'] || window.fastclick;
-var doT = gi2704['/www/js/lib/dot.js'] || window.doT;
+var polyfillClassList = gi6206['/www/js/lib/polyfill-class-list.js'] || window.polyfillClassList;
+var shim = gi6206['/www/js/lib/shim.js'] || window.shim;
+var shimES5 = gi6206['/www/js/lib/shim-es5.js'] || window.shimES5;
+var shamES5 = gi6206['/www/js/lib/sham-es5.js'] || window.shamES5;
+var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
+var Deferred = gi6206['/www/js/lib/deferred.js'] || window.Deferred;
+var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
+var fastclick = gi6206['/www/js/lib/fastclick.js'] || window.fastclick;
+var doT = gi6206['/www/js/lib/dot.js'] || window.doT;
 
 // init all services
-var info = gi2704['/www/js/services/info.js'] || window.info;
-var device = gi2704['/www/js/services/device.js'] || window.device;
-var androidAds = gi2704['/www/js/services/android-ads.js'] || window.androidAds;
-var lang = gi2704['/www/js/services/lang.js'] || window.lang;
-var tm = gi2704['/www/js/services/template-master.js'] || window.tm;
-var util = gi2704['/www/js/services/util.js'] || window.util;
+var info = gi6206['/www/js/services/info.js'] || window.info;
+var device = gi6206['/www/js/services/device.js'] || window.device;
+var androidAds = gi6206['/www/js/services/android-ads.js'] || window.androidAds;
+var lang = gi6206['/www/js/services/lang.js'] || window.lang;
+var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
+var util = gi6206['/www/js/services/util.js'] || window.util;
 
 // init sound players
-var sm = gi2704['/www/js/sound/sound-master.js'] || window.sm;
+var sm = gi6206['/www/js/sound/sound-master.js'] || window.sm;
 
-var router = gi2704['/www/js/app/router/router.js'] || window.router;
+var router = gi6206['/www/js/app/router/router.js'] || window.router;
 
-var BaseView = gi2704['/www/js/app/view/core/base.js'] || window.BaseView;
-var hintMaster = gi2704['/www/js/app/view/core/hint.js'] || window.hintMaster;
-var popupMaster = gi2704['/www/js/app/view/core/popup.js'] || window.popupMaster;
+var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
+var hintMaster = gi6206['/www/js/app/view/core/hint.js'] || window.hintMaster;
+var popupMaster = gi6206['/www/js/app/view/core/popup.js'] || window.popupMaster;
 
 // todo: - test - enable fast click
 new FastClick(window.document.body); // test it decide
