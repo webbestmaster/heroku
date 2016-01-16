@@ -316,11 +316,11 @@ button:focus {
     opacity: 0; } }
 
 .popup-show-in {
-  -webkit-animation-duration: 0.5s;
-  -moz-animation-duration: 0.5s;
-  -ms-animation-duration: 0.5s;
-  -o-animation-duration: 0.5s;
-  animation-duration: 0.5s;
+  -webkit-animation-duration: 0.3s;
+  -moz-animation-duration: 0.3s;
+  -ms-animation-duration: 0.3s;
+  -o-animation-duration: 0.3s;
+  animation-duration: 0.3s;
   -webkit-animation-iteration-count: 1;
   -moz-animation-iteration-count: 1;
   -ms-animation-iteration-count: 1;
@@ -893,7 +893,8 @@ body {
   top: 0.6rem;
   left: 0.6rem;
   z-index: 1;
-  opacity: 0.75; }
+  opacity: 0.75;
+  overflow: hidden; }
 
 .tangram-menu-button-line, .tangram-menu-button-line_0, .tangram-menu-button-line_1, .tangram-menu-button-line_2 {
   position: absolute;
@@ -901,11 +902,12 @@ body {
   left: 15%;
   height: 10%;
   background-color: #333;
-  -webkit-transition: all ease-out 0.3s;
-  -moz-transition: all ease-out 0.3s;
-  -ms-transition: all ease-out 0.3s;
-  -o-transition: all ease-out 0.3s;
-  transition: all ease-out 0.3s; }
+  border-radius: 1rem;
+  -webkit-transition: all ease-out 0.2s;
+  -moz-transition: all ease-out 0.2s;
+  -ms-transition: all ease-out 0.2s;
+  -o-transition: all ease-out 0.2s;
+  transition: all ease-out 0.2s; }
 
 .tangram-menu-button-line_0 {
   top: 20%; }
@@ -920,6 +922,28 @@ body {
   text-align: center;
   text-transform: capitalize;
   padding-bottom: 1rem; }
+
+.tangram-menu-button_active .tangram-menu-button-line_0 {
+  -webkit-transform: translate3d(0, 220%, 0) rotate(45deg);
+  -moz-transform: translate3d(0, 220%, 0) rotate(45deg);
+  -ms-transform: translate3d(0, 220%, 0) rotate(45deg);
+  -o-transform: translate3d(0, 220%, 0) rotate(45deg);
+  transform: translate3d(0, 220%, 0) rotate(45deg); }
+
+.tangram-menu-button_active .tangram-menu-button-line_1 {
+  opacity: 0;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  -moz-transform: translate3d(-100%, 0, 0);
+  -ms-transform: translate3d(-100%, 0, 0);
+  -o-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0); }
+
+.tangram-menu-button_active .tangram-menu-button-line_2 {
+  -webkit-transform: translate3d(0, -270%, 0) rotate(-45deg);
+  -moz-transform: translate3d(0, -270%, 0) rotate(-45deg);
+  -ms-transform: translate3d(0, -270%, 0) rotate(-45deg);
+  -o-transform: translate3d(0, -270%, 0) rotate(-45deg);
+  transform: translate3d(0, -270%, 0) rotate(-45deg); }
 
 .rotater {
   position: absolute;
