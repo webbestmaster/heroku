@@ -1,15 +1,19 @@
-.luxury-3d-Text, .title-game-name, .section-header {
+.luxury-3d-text, .title-game-name, .section-header {
   text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #ccc, 2px 2px 1px rgba(0, 0, 0, 0.4); }
 
-.luxury-3d-Button, .screen--button, .section-preview {
+.luxury-3d-text-vertical-shadow, .one-more-tangram-check {
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 2px 1px rgba(0, 0, 0, 0.4); }
+
+.luxury-3d-button, .screen--button, .section-preview, .tangram-menu-button, .one-more-tangram, .one-more-tangram_left, .one-more-tangram_center, .one-more-tangram_right {
   box-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 2px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 0.2rem;
   background-image: -webkit-linear-gradient(top, #fff, #f5f5f5);
   background-image: -moz-linear-gradient(top, #fff, #f5f5f5);
   background-image: -ms-linear-gradient(top, #fff, #f5f5f5);
   background-image: -o-linear-gradient(top, #fff, #f5f5f5);
   background-image: linear-gradient(top, #fff, #f5f5f5); }
 
-.luxury-3d-Button_active, .screen--button:active, .section-preview:active {
+.luxury-3d-button_active, .screen--button:active, .section-preview:active, .one-more-tangram:active, .one-more-tangram_left:active, .one-more-tangram_center:active, .one-more-tangram_right:active {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   background-image: -webkit-linear-gradient(top, #f5f5f5, #fff);
   background-image: -moz-linear-gradient(top, #f5f5f5, #fff);
@@ -277,7 +281,7 @@ button:focus {
   padding: 0.9rem 1rem;
   font-size: 1.3rem;
   line-height: 1.5rem;
-  background-color: #FFFFFF;
+  background-color: #f5f5f5;
   box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.5);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -775,6 +779,10 @@ button:focus {
   font-family: 'origram';
   src: url("../font/origram.otf"); }
 
+@font-face {
+  font-family: 'icons';
+  src: url("../font/icomoon.ttf"); }
+
 body {
   background-image: url(../i/main-bg.jpg);
   background-repeat: no-repeat;
@@ -832,8 +840,7 @@ body {
   margin: 0 auto 0.55rem;
   padding: 0.7rem;
   background-color: #fff;
-  text-align: center;
-  border-radius: 0.2rem; }
+  text-align: center; }
 
 .scroll-area-content {
   text-align: center;
@@ -847,8 +854,7 @@ body {
   margin: 0.45rem;
   padding: 0.2rem;
   background-color: #fff;
-  text-align: center;
-  border-radius: 0.2rem; }
+  text-align: center; }
 
 .section-preview-image {
   width: 5rem;
@@ -871,6 +877,49 @@ body {
   -o-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0 auto; }
+
+.screen-disable {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5; }
+
+.tangram-menu-button {
+  position: absolute;
+  width: 3rem;
+  height: 2.2rem;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 1;
+  opacity: 0.75; }
+
+.tangram-menu-button-line, .tangram-menu-button-line_0, .tangram-menu-button-line_1, .tangram-menu-button-line_2 {
+  position: absolute;
+  width: 70%;
+  left: 15%;
+  height: 10%;
+  background-color: #333;
+  -webkit-transition: all ease-out 0.3s;
+  -moz-transition: all ease-out 0.3s;
+  -ms-transition: all ease-out 0.3s;
+  -o-transition: all ease-out 0.3s;
+  transition: all ease-out 0.3s; }
+
+.tangram-menu-button-line_0 {
+  top: 20%; }
+
+.tangram-menu-button-line_1 {
+  top: 45%; }
+
+.tangram-menu-button-line_2 {
+  top: 70%; }
+
+.tangram-menu--header {
+  text-align: center;
+  text-transform: capitalize;
+  padding-bottom: 1rem; }
 
 .rotater {
   position: absolute;
@@ -920,3 +969,40 @@ body {
 }
 
 */
+.one-more-tangram-wrapper {
+  font-family: icons;
+  opacity: 0;
+  width: 100%;
+  height: 100%; }
+
+.one-more-tangram, .one-more-tangram_left, .one-more-tangram_center, .one-more-tangram_right {
+  font-weight: bold;
+  position: absolute;
+  bottom: 2rem;
+  width: 3.5rem;
+  padding: 0.7rem;
+  background-color: #fff;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2rem;
+  left: 50%; }
+
+.one-more-tangram_left {
+  margin-left: -9.05rem; }
+
+.one-more-tangram_center {
+  margin-left: -2.45rem; }
+
+.one-more-tangram_right {
+  margin-left: 4.15rem; }
+
+.one-more-tangram-check {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 10%;
+  text-align: center;
+  font-size: 18rem;
+  line-height: 18rem;
+  color: #fff;
+  opacity: 0.75; }

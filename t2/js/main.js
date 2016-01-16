@@ -1,4 +1,4 @@
-(function (gi6206) {
+(function (gi2705) {
 (function () {
 'use strict';
 /*global console */
@@ -50,7 +50,7 @@ window.onerror = function (errorMsg, url, lineNumber) {
 
 };
 
-gi6206['/www/js/services/log.js'] = log;
+gi2705['/www/js/services/log.js'] = log;
 
 
 }());
@@ -58,7 +58,7 @@ gi6206['/www/js/services/log.js'] = log;
 'use strict';
 /*global window */
 
-var log = gi6206['/www/js/services/log.js'] || window.log;
+var log = gi2705['/www/js/services/log.js'] || window.log;
 
 var mediator;
 
@@ -135,10 +135,16 @@ mediator = {
 		obj.subscribe = subscribe;
 		obj.publish = publish;
 		obj.unsubscribe = unsubscribe;
+	},
+	uninstallFrom: function (obj) {
+		['subscribe', 'publish', 'unsubscribe'].forEach(function (methodName) {
+			obj[methodName] = null;
+			delete obj[methodName];
+		});
 	}
 };
 
-gi6206['/www/js/services/mediator.js'] = mediator;
+gi2705['/www/js/services/mediator.js'] = mediator;
 
 }());
 (function () {
@@ -7221,7 +7227,7 @@ info = {
 	},
 
 	ls: win.localStorage,
-	savedItem: 'cool-book-stories',
+	savedItem: 'tangram-2',
 	attr: {},
 	systemAttr: {},
 	defaultLanguage: 'en',
@@ -7416,12 +7422,12 @@ info = {
 
 		var info = this,
 			defaultSettings = {
-				installTime: Date.now(),
 				versionCode: 1,
 				screenAnimation: info.get('isAndroid', true) ? 'off' : 'on',
+				gameDifficult: 'regular',
 				//screenAnimation: 'off',
-				storyByStory: info.isNormal ? 'off' : 'on',
-				hint: {}
+				//storyByStory: info.isNormal ? 'off' : 'on',
+				//hint: {}
 				//autoSave: 'on', // auto save game after every turn
 				//confirmTurn: 'off', // game turn
 				//confirmMove: 'off', // move unit
@@ -7434,6 +7440,7 @@ info = {
 				//unitAnimation: 'off',
 				//difficult: 'easy', // easy, normal, hard
 				//gameSpeed: '3' // 1..5, use string type
+				installTime: Date.now()
 			},
 			key,
 			value;
@@ -7465,7 +7472,7 @@ info = {
 
 info.init();
 
-gi6206['/www/js/services/info.js'] = info;
+gi2705['/www/js/services/info.js'] = info;
 
 
 }());
@@ -7473,9 +7480,9 @@ gi6206['/www/js/services/info.js'] = info;
 'use strict';
 /*global window */
 
-var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
-var log = gi6206['/www/js/services/log.js'] || window.log;
+var Backbone = gi2705['/www/js/lib/backbone.js'] || window.Backbone;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
+var log = gi2705['/www/js/services/log.js'] || window.log;
 
 var win = window,
 	doc = win.document,
@@ -7928,13 +7935,13 @@ var win = window,
 
 device = new Device();
 
-gi6206['/www/js/services/device.js'] = device;
+gi2705['/www/js/services/device.js'] = device;
 }());
 (function () {
 'use strict';
 /*global window, Date */
 
-var info = gi6206['/www/js/services/info.js'] || window.info;
+var info = gi2705['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	androidAds = {
@@ -7980,7 +7987,7 @@ var win = window,
 
 	androidAds.init();
 
-gi6206['/www/js/services/android-ads.js'] = androidAds;
+gi2705['/www/js/services/android-ads.js'] = androidAds;
 
 }());
 (function () {
@@ -8006,6 +8013,10 @@ var en = {
 
 	// tangram
 
+	menu: 'menu',
+	exit: 'exit',
+	reset: 'reset',
+
 		// title menu
 	'play-regular': 'play regular',
 	'play-master': 'play master',
@@ -8019,7 +8030,7 @@ var en = {
 
 };
 
-gi6206['/www/js/i18n/en.js'] = en;
+gi2705['/www/js/i18n/en.js'] = en;
 }());
 (function () {
 'use strict';
@@ -8048,15 +8059,15 @@ var ru = {
 
 };
 
-gi6206['/www/js/i18n/ru.js'] = ru;
+gi2705['/www/js/i18n/ru.js'] = ru;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var info = gi6206['/www/js/services/info.js'] || window.info;
-var en = gi6206['/www/js/i18n/en.js'] || window.en;
-var ru = gi6206['/www/js/i18n/ru.js'] || window.ru;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+var en = gi2705['/www/js/i18n/en.js'] || window.en;
+var ru = gi2705['/www/js/i18n/ru.js'] || window.ru;
 
 var lang = {
 
@@ -8076,7 +8087,7 @@ var lang = {
 
 lang.set(info.get('language'));
 
-gi6206['/www/js/services/lang.js'] = lang;
+gi2705['/www/js/services/lang.js'] = lang;
 
 
 
@@ -8085,7 +8096,7 @@ gi6206['/www/js/services/lang.js'] = lang;
 'use strict';
 /*global window */
 
-var doT = gi6206['/www/js/lib/dot.js'] || window.doT;
+var doT = gi2705['/www/js/lib/dot.js'] || window.doT;
 
 var doc = window.document,
 	templateMaster = {
@@ -8122,7 +8133,7 @@ var doc = window.document,
 
 templateMaster.init();
 
-gi6206['/www/js/services/template-master.js'] = templateMaster;
+gi2705['/www/js/services/template-master.js'] = templateMaster;
 
 
 
@@ -8199,7 +8210,7 @@ var win = window,
 
 	};
 
-gi6206['/www/js/services/util.js'] = util;
+gi2705['/www/js/services/util.js'] = util;
 }());
 (function () {
 'use strict';
@@ -8242,7 +8253,7 @@ var win = window,
 
 };
 
-gi6206['/www/js/sound/player-android.js'] = androidPlayer;
+gi2705['/www/js/sound/player-android.js'] = androidPlayer;
 }());
 (function () {
 'use strict';
@@ -8299,7 +8310,7 @@ var win = window,
 
 	};
 
-gi6206['/www/js/sound/player-ios.js'] = iosPlayer;
+gi2705['/www/js/sound/player-ios.js'] = iosPlayer;
 
 
 }());
@@ -8307,7 +8318,7 @@ gi6206['/www/js/sound/player-ios.js'] = iosPlayer;
 'use strict';
 /*global window */
 
-var info = gi6206['/www/js/services/info.js'] || window.info;
+var info = gi2705['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	webPlayer = {
@@ -8381,17 +8392,17 @@ var win = window,
 
 };
 
-gi6206['/www/js/sound/player-web.js'] = webPlayer;
+gi2705['/www/js/sound/player-web.js'] = webPlayer;
 
 }());
 (function () {
 'use strict';
 /*global window */
 
-var androidPlayer = gi6206['/www/js/sound/player-android.js'] || window.androidPlayer;
-var iosPlayer = gi6206['/www/js/sound/player-ios.js'] || window.iosPlayer;
-var webPlayer = gi6206['/www/js/sound/player-web.js'] || window.webPlayer;
-var info = gi6206['/www/js/services/info.js'] || window.info;
+var androidPlayer = gi2705['/www/js/sound/player-android.js'] || window.androidPlayer;
+var iosPlayer = gi2705['/www/js/sound/player-ios.js'] || window.iosPlayer;
+var webPlayer = gi2705['/www/js/sound/player-web.js'] || window.webPlayer;
+var info = gi2705['/www/js/services/info.js'] || window.info;
 
 var win = window,
 	soundMaster = {
@@ -8529,7 +8540,7 @@ var win = window,
 
 soundMaster.init();
 
-gi6206['/www/js/sound/sound-master.js'] = soundMaster;
+gi2705['/www/js/sound/sound-master.js'] = soundMaster;
 
 
 }());
@@ -8537,16 +8548,17 @@ gi6206['/www/js/sound/sound-master.js'] = soundMaster;
 'use strict';
 /*global window */
 
-var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
-var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var info = gi6206['/www/js/services/info.js'] || window.info;
-//var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
-var util = gi6206['/www/js/services/util.js'] || window.util;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
-var sm = gi6206['/www/js/sound/sound-master.js'] || window.sm;
-var lang = gi6206['/www/js/services/lang.js'] || window.lang;
-var device = gi6206['/www/js/services/device.js'] || window.device;
+var Backbone = gi2705['/www/js/lib/backbone.js'] || window.Backbone;
+var $ = gi2705['/www/js/lib/jbone.js'] || window.$;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+//var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var util = gi2705['/www/js/services/util.js'] || window.util;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
+var sm = gi2705['/www/js/sound/sound-master.js'] || window.sm;
+var lang = gi2705['/www/js/services/lang.js'] || window.lang;
+var device = gi2705['/www/js/services/device.js'] || window.device;
+var log = gi2705['/www/js/services/log.js'] || window.log;
 
 var win = window,
 	doc = win.document,
@@ -8766,7 +8778,7 @@ var win = window,
 
 		hide: function () {
 
-			console.log('base view hide');
+			log('base view hide');
 
 			var view = this,
 				$el = view.$el,
@@ -8777,6 +8789,7 @@ var win = window,
 			view.empty();
 
 			view.unsubscribe();
+			mediator.uninstallFrom(view);
 
 			view.undelegateEvents();
 
@@ -8884,7 +8897,7 @@ var win = window,
 
 			view.hidePopupByRouter();
 
-			view.publish('showPopup', data, popup);
+			view.publish('show-popup', data, popup);
 
 			popup.view.set('deferred', deferred);
 
@@ -9244,47 +9257,60 @@ var win = window,
 
 	});
 
-gi6206['/www/js/app/view/core/base.js'] = BaseView;
+gi2705['/www/js/app/view/core/base.js'] = BaseView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
-var lang = gi6206['/www/js/services/lang.js'] || window.lang;
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var lang = gi2705['/www/js/services/lang.js'] || window.lang;
+var $ = gi2705['/www/js/lib/jbone.js'] || window.$;
+var info = gi2705['/www/js/services/info.js'] || window.info;
 
 var HomeView = BaseView.extend({
 
-	events: {},
+	events: {
+		'click .js-set-game-difficult': 'setGameDifficult'
+	},
 
 	initialize: function () {
 
 		var view = this;
 
 		view.setElement(tm.get('home')({
-			tm: tm,
-			lang: lang,
-			isBack: !false,
-			title: 'tangram'
+			lang: lang
 		}));
 
 		view.render();
 
 		return BaseView.prototype.initialize.apply(view, arguments);
 
+	},
+
+	setGameDifficult: function (e) {
+
+		var view = this,
+			$node = $(e.currentTarget),
+			difficult = $node.attr('data-difficult');
+
+		info.set('gameDifficult', difficult);
+
+		view.publish('navigate', 'sections', {trigger: true});
+
 	}
 
 });
 
-gi6206['/www/js/app/view/home/home-view.js'] = HomeView;
+gi2705['/www/js/app/view/home/home-view.js'] = HomeView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var Backbone = gi2705['/www/js/lib/backbone.js'] || window.Backbone;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
 
 var Tan = Backbone.Model.extend({
 
@@ -9674,29 +9700,32 @@ var Tan = Backbone.Model.extend({
 				break;
 
 			case 'triangleMedium':
-				tan.set('rotate', -90);
+				tan.set('rotate', 90);
 				coordinates = tan.getBoundingCoordinates();
 				tan.move({
-					dx: boxWidth - coordinates.maxX - margin,
-					dy: boxHeight / 2 - coordinates.maxY + coordinates.height / 2
+					dx: margin - coordinates.minX,
+					//dx: boxWidth - coordinates.maxX - margin,
+					//dy: boxHeight / 2 - coordinates.maxY + coordinates.height / 2
+					dy: boxHeight - coordinates.maxY - margin * 4 - coordinates.height
 				});
 				break;
 
 			case 'triangleSmall-1':
-				tan.set('rotate', -45);
+				//tan.set('rotate', 0);
 				coordinates = tan.getBoundingCoordinates();
 				tan.move({
 					dx: boxWidth - coordinates.maxX - margin,
-					dy: margin - coordinates.minY
+					//dy: margin - coordinates.minY
+					dy: boxHeight - coordinates.maxY - margin * 2 - coordinates.height
 				});
 				break;
 
 			case 'triangleSmall-2':
-				tan.set('rotate', -45);
+				tan.set('rotate', -90);
 				coordinates = tan.getBoundingCoordinates();
 				tan.move({
 					dx: margin - coordinates.minX,
-					dy: margin - coordinates.minY
+					dy: boxHeight - coordinates.maxY - margin * 2 - coordinates.height
 				});
 				break;
 
@@ -9713,8 +9742,10 @@ var Tan = Backbone.Model.extend({
 				//tan.set('rotate', -90);
 				coordinates = tan.getBoundingCoordinates();
 				tan.move({
-					dx: margin - coordinates.minX,
-					dy: boxHeight / 2 - coordinates.maxY + coordinates.height / 2
+					//dx: margin - coordinates.minX,
+					dx: boxWidth - coordinates.maxX - margin,
+					//dy: boxHeight / 2 - coordinates.maxY + coordinates.height / 2
+					dy: boxHeight - coordinates.maxY - margin * 4 - coordinates.height
 				});
 				break;
 
@@ -10068,12 +10099,11 @@ var Tan = Backbone.Model.extend({
 
 	destroy: function () {
 
-		console.log('tan destroy');
-
 		var tan = this,
 			node = tan.get('node');
 
 		tan.unsubscribe();
+		mediator.uninstallFrom(tan);
 
 		node.parentNode.removeChild(node);
 
@@ -10083,7 +10113,7 @@ var Tan = Backbone.Model.extend({
 
 });
 
-gi6206['/www/js/app/view/tangram/models/tan.js'] = Tan;
+gi2705['/www/js/app/view/tangram/models/tan.js'] = Tan;
 }());
 (function () {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
@@ -10251,20 +10281,215 @@ if (typeof define == 'function' && define.amd) define([], function() { return Sh
 //
 //console.log(sha1);
 
-gi6206['/www/js/lib/sha1.js'] = Sha1;
+gi2705['/www/js/lib/sha1.js'] = Sha1;
 
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
-var Tan = gi6206['/www/js/app/view/tangram/models/tan.js'] || window.Tan;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var device = gi6206['/www/js/services/device.js'] || window.device;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
-var log = gi6206['/www/js/services/log.js'] || window.log;
-var sha1 = gi6206['/www/js/lib/sha1.js'] || window.sha1;
+var section = {
+
+	name: 'person',
+	data: [
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
+		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
+		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]}
+
+	]
+
+};
+
+gi2705['/www/js/app/data/sections/person.js'] = section;
+
+}());
+(function () {
+'use strict';
+/*global window */
+
+var person = gi2705['/www/js/app/data/sections/person.js'] || window.person;
+
+var tangrams = {
+
+	version: '0.1',
+	versionCode: 1,
+	data: [
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person,
+		person
+	]
+
+};
+
+gi2705['/www/js/app/data/tangrams.js'] = tangrams;
+}());
+(function () {
+'use strict';
+/*global window */
+
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var lang = gi2705['/www/js/services/lang.js'] || window.lang;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
+var $ = gi2705['/www/js/lib/jbone.js'] || window.$;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+var tangrams = gi2705['/www/js/app/data/tangrams.js'] || window.tangrams;
+
+var TangramSuccessfulView = BaseView.extend({
+
+	events: {
+		'scroll': 'stopEvent',
+		'click .js-one-more-tangram': 'oneMoreTangram'
+		//'click .js-restart-tangram': 'restartTangram'
+	},
+
+	initialize: function (data) {
+
+		var view = this,
+			sectionInfo;
+
+		//view.extendFromObj(data);
+
+		sectionInfo = view.getSectionInfo(data);
+
+		view.setElement(tm.get('tangram-successful')(sectionInfo));
+
+		view.render();
+
+		view.subscribe('route', view.hide);
+
+		return BaseView.prototype.initialize.apply(view, arguments);
+
+	},
+
+	getSectionInfo: function (data) {
+
+		var view = this,
+			section = _.find(tangrams.data, {name: data.name}),
+			sectionLength = section.data.length,
+			nextIndex,
+			prevIndex,
+			index = data.index;
+
+		if (index === sectionLength - 1) { // index === lastIndex
+			nextIndex = 0;
+			prevIndex = index - 1;
+		} else if (!index) { // index === 0
+			nextIndex = 1;
+			prevIndex = sectionLength - 1;
+		} else {
+			nextIndex = index + 1;
+			prevIndex = index - 1;
+		}
+
+		return {
+			nextIndex: nextIndex,
+			prevIndex: prevIndex,
+			section: section,
+			name: data.name,
+			index: data.index
+		};
+
+	},
+
+	render: function () {
+
+		var view = this;
+
+		this.$wrapper.append(view.$el);
+
+	},
+
+	oneMoreTangram: function (e) {
+
+		var view = this,
+			$node = $(e.currentTarget),
+			index = $node.attr('data-index'),
+			name = $node.attr('data-name');
+
+		view.hide();
+
+		mediator.publish('hide-main-view');
+
+		mediator.publish('tangram-view', {
+			name: name,
+			index: index
+		});
+
+	}
+
+/*
+	restartTangram: function (e) {
+
+		var view = this,
+			$node = $(e.currentTarget),
+			index = $node.attr('data-index'),
+			name = $node.attr('data-name');
+
+		view.publish('tangram-view', {
+			name: name,
+			index: index
+		});
+
+		view.hide();
+
+	}
+*/
+
+});
+
+gi2705['/www/js/app/view/tangram-successful/tangram-successful-view.js'] = TangramSuccessfulView;
+}());
+(function () {
+'use strict';
+/*global window */
+
+var Backbone = gi2705['/www/js/lib/backbone.js'] || window.Backbone;
+var Tan = gi2705['/www/js/app/view/tangram/models/tan.js'] || window.Tan;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var device = gi2705['/www/js/services/device.js'] || window.device;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
+var log = gi2705['/www/js/services/log.js'] || window.log;
+var sha1 = gi2705['/www/js/lib/sha1.js'] || window.sha1;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+var TangramSuccessfulView = gi2705['/www/js/app/view/tangram-successful/tangram-successful-view.js'] || window.TangramSuccessfulView;
 
 var tansInfo = {
 	'triangleBig-1': {
@@ -10455,19 +10680,29 @@ var TanCollection = Backbone.Collection.extend({
 			answerAtoms = collection.prepareToEquals(collection.getAnswerAtoms()),
 			isDone;
 
+
+
 		isDone = tangramAtoms.every(function (atomStr) {
 
 			if (answerAtoms.indexOf(atomStr) === -1) {
-				console.log(answerAtoms);
-				console.log(atomStr);
+				log(answerAtoms);
+				log(atomStr);
 			}
 
 			return answerAtoms.indexOf(atomStr) !== -1;
 		});
 
-		if (isDone) {
-			log('--- tangram is done ---', isDone);
+		if (!isDone) {
+			return;
 		}
+
+		log('tangram is DONE');
+
+		collection.unsubscribe('deviceAction:isActive');
+		collection.unsubscribe('deviceAction:dblTap');
+		collection.publish('rotater:deActivate');
+		collection.deActiveAll();
+		collection.setData('success-view', new TangramSuccessfulView(collection.getData('tangram-info')));
 
 	},
 
@@ -10636,8 +10871,9 @@ var TanCollection = Backbone.Collection.extend({
 			otherTansCoordinates = [],
 			pow = Math.pow.bind(Math);
 
-		// TODO: difficult hard
-		otherTansCoordinates = otherTansCoordinates.concat(initedPatternAlignPoints);
+		if (info.get('gameDifficult') === 'regular') {
+			otherTansCoordinates = otherTansCoordinates.concat(initedPatternAlignPoints);
+		}
 
 		collection.each(function (tan) {
 			if (tan === alignTan) {
@@ -10873,6 +11109,10 @@ var TanCollection = Backbone.Collection.extend({
 				'class': 'tangram-pattern'
 			};
 
+		if (info.get('gameDifficult') !== 'regular') {
+			attributes.viewBox = [0, 0, width * 3.5, height * 3.5].join(' ');
+		}
+
 		Object.keys(attributes).forEach(function (key) {
 			var attr = document.createAttribute(key);
 			attr.value = attributes[key];
@@ -10959,6 +11199,8 @@ var TanCollection = Backbone.Collection.extend({
 
 		collection.unsubscribe();
 
+		mediator.uninstallFrom(collection);
+
 		collection.emptyData();
 
 		tan = collection.first();
@@ -10973,17 +11215,17 @@ var TanCollection = Backbone.Collection.extend({
 
 });
 
-gi6206['/www/js/app/view/tangram/models/tan-collection.js'] = TanCollection;
+gi2705['/www/js/app/view/tangram/models/tan-collection.js'] = TanCollection;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
-var info = gi6206['/www/js/services/info.js'] || window.info;
-var log = gi6206['/www/js/services/log.js'] || window.log;
+var Backbone = gi2705['/www/js/lib/backbone.js'] || window.Backbone;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+var log = gi2705['/www/js/services/log.js'] || window.log;
 
 var RotaterModel = Backbone.Model.extend({
 
@@ -11209,6 +11451,7 @@ var RotaterModel = Backbone.Model.extend({
 		var rotater = this;
 
 		rotater.unsubscribe();
+		mediator.uninstallFrom(rotater);
 
 		rotater.get('$rotater').off().remove();
 
@@ -11219,97 +11462,23 @@ var RotaterModel = Backbone.Model.extend({
 });
 
 
-gi6206['/www/js/app/view/tangram/rotater/rotater-model.js'] = RotaterModel;
+gi2705['/www/js/app/view/tangram/rotater/rotater-model.js'] = RotaterModel;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var section = {
-
-	name: 'person',
-	data: [
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]},
-		{"name":"running man 1","hash":"701f10","data":[[0.53033009,0.35355339,0],[0.53033009,0.35355339,-90],[0.88388348,0.70710678,-90],[0.88388348,0.70710678,0],[0.53033009,0.70710678,-90],[0.53033009,0.70710678,0],[0.53033009,0.70710678,180],[0.53033009,0.70710678,90],[0.35355339,0.4267767,45],[0.35355339,0.4267767,-45],[0.35355339,0.9267767,-45],[0.35355339,0.9267767,45],[0.10355339,0.6767767,-45],[0.10355339,0.6767767,45],[0.10355339,0.6767767,-135],[0.10355339,0.6767767,135],[0.1767767,1.35355339,90],[0.1767767,1.35355339,0],[0.1767767,1,-90],[0.1767767,1,0],[0,1.53033009,45],[0,1.53033009,-45],[0.60355339,1.63388348,0],[0.60355339,1.63388348,-90],[0.35355339,0,180],[0.35355339,0,90],[0.35355339,0,0],[0.35355339,0,-90],[0.60355339,1.38388348,-45],[0.60355339,1.38388348,45],[0.35355339,1.13388348,-135],[0.35355339,1.13388348,135]]},
-		{"name":"running man 2","hash":"bd83b8","data":[[1.06066017,0,0],[1.06066017,0,-90],[1.41421356,0.35355339,-90],[1.41421356,0.35355339,0],[1.06066017,0.35355339,-90],[1.06066017,0.35355339,0],[1.06066017,0.35355339,180],[1.06066017,0.35355339,90],[0.70710678,0.70710678,180],[0.70710678,0.70710678,90],[0.35355339,0.35355339,90],[0.35355339,0.35355339,180],[0.70710678,0.35355339,90],[0.70710678,0.35355339,180],[0.70710678,0.35355339,0],[0.70710678,0.35355339,-90],[0.03033009,0.28033009,-135],[0.03033009,0.28033009,135],[0.28033009,0.53033009,45],[0.28033009,0.53033009,135],[0,0,180],[0,0,90],[1.00888348,1.50888348,0],[1.00888348,1.50888348,-90],[1.41421356,0,180],[1.41421356,0,90],[1.41421356,0,0],[1.41421356,0,-90],[1.00888348,1.25888348,-45],[1.00888348,1.25888348,45],[0.75888348,1.00888348,-135],[0.75888348,1.00888348,135]]}
-
-	]
-
-};
-
-gi6206['/www/js/app/data/sections/person.js'] = section;
-
-}());
-(function () {
-'use strict';
-/*global window */
-
-var person = gi6206['/www/js/app/data/sections/person.js'] || window.person;
-
-var tangrams = {
-
-	version: '0.1',
-	versionCode: 1,
-	data: [
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person,
-		person
-	]
-
-};
-
-gi6206['/www/js/app/data/tangrams.js'] = tangrams;
-}());
-(function () {
-'use strict';
-/*global window */
-
-var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
-var TanCollection = gi6206['/www/js/app/view/tangram/models/tan-collection.js'] || window.TanCollection;
-var RotaterModel = gi6206['/www/js/app/view/tangram/rotater/rotater-model.js'] || window.RotaterModel;
-var device = gi6206['/www/js/services/device.js'] || window.device;
-var log = gi6206['/www/js/services/log.js'] || window.log;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
-var tangrams = gi6206['/www/js/app/data/tangrams.js'] || window.tangrams;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var tanCollection = gi6206['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var TanCollection = gi2705['/www/js/app/view/tangram/models/tan-collection.js'] || window.TanCollection;
+var RotaterModel = gi2705['/www/js/app/view/tangram/rotater/rotater-model.js'] || window.RotaterModel;
+var device = gi2705['/www/js/services/device.js'] || window.device;
+var log = gi2705['/www/js/services/log.js'] || window.log;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
+var lang = gi2705['/www/js/services/lang.js'] || window.lang;
+var tangrams = gi2705['/www/js/app/data/tangrams.js'] || window.tangrams;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var tanCollection = gi2705['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
 
 var tanCollectionProto = tanCollection.prototype;
 
@@ -11317,7 +11486,8 @@ var TangramView = BaseView.extend({
 
 	events: {
 		scroll: 'stopEvent',
-		'click .js-save-atoms': 'saveAtoms'
+		'click .js-save-atoms': 'saveAtoms',
+		'click .js-tangram-menu-button': 'menu'
 	},
 
 	initialize: function (dataArg) {
@@ -11345,7 +11515,11 @@ var TangramView = BaseView.extend({
 			patternSvg,
 			name = data.name || 'person',
 			index = data.index || 0,
-			pattern = _.find(tangrams.data, {name: name}).data[index];
+			pattern = _.find(tangrams.data, {name: name}).data[index],
+			tangramInfo = {
+				name: name,
+				index: Number(index)
+			};
 
 		log(mode);
 
@@ -11367,6 +11541,9 @@ var TangramView = BaseView.extend({
 		}));
 
 		//view.bindEventListeners();
+
+		tanCollection.setData('tangram-info', tangramInfo);
+		view.set('tangram-info', tangramInfo);
 
 		tanCollection.setScale(scale);
 		tanCollection.initPattern(pattern);
@@ -11392,12 +11569,17 @@ var TangramView = BaseView.extend({
 	hide: function () {
 
 		var view = this,
-			tanCollection = view.get('tan-collection');
+			tanCollection = view.get('tan-collection'),
+			$svg = view.$el.find('svg'),
+			removedItems = ['image', 'pattern', 'defs', 'polygon'];
 
 		tanCollection.destroy();
 
-		// base hide
+		removedItems.forEach(function (item) {
+			$svg.find(item).remove();
+		});
 
+		// base hide
 		BaseView.prototype.hide.apply(view, arguments);
 
 	},
@@ -11513,22 +11695,49 @@ var TangramView = BaseView.extend({
 
 		this.publish('tan-collection:saveAtoms');
 
+	},
+
+	menu: function () {
+
+		var view = this,
+			tangramInfo = view.get('tangram-info');
+
+		view.showPopup({
+			cssClass: 'myClass',
+			name: 'tangram-menu',
+			data: {
+				dd: 55,
+				lang: lang
+			},
+			extraEvents: [
+				{
+					selector: '.js-reset-tangram',
+					event: 'click',
+					fn: function () {
+						view.hide();
+						mediator.publish('tangram-view', tangramInfo);
+					}
+				}
+			]
+
+		});
+
 	}
 
 });
 
-gi6206['/www/js/app/view/tangram/tangram-view.js'] = TangramView;
+gi2705['/www/js/app/view/tangram/tangram-view.js'] = TangramView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
-var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
-var lang = gi6206['/www/js/services/lang.js'] || window.lang;
-var tangrams = gi6206['/www/js/app/data/tangrams.js'] || window.tangrams;
-var tanCollection = gi6206['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var lang = gi2705['/www/js/services/lang.js'] || window.lang;
+var tangrams = gi2705['/www/js/app/data/tangrams.js'] || window.tangrams;
+var tanCollection = gi2705['/www/js/app/view/tangram/models/tan-collection.js'] || window.tanCollection;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
 
 var tanCollectionProto = tanCollection.prototype;
 
@@ -11688,19 +11897,19 @@ var SectionsView = BaseView.extend({
 
 });
 
-gi6206['/www/js/app/view/sections/sections-view.js'] = SectionsView;
+gi2705['/www/js/app/view/sections/sections-view.js'] = SectionsView;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
-var HomeView = gi6206['/www/js/app/view/home/home-view.js'] || window.HomeView;
-var TangramView = gi6206['/www/js/app/view/tangram/tangram-view.js'] || window.TangramView;
-var SectionsView = gi6206['/www/js/app/view/sections/sections-view.js'] || window.SectionsView;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var Backbone = gi2705['/www/js/lib/backbone.js'] || window.Backbone;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var HomeView = gi2705['/www/js/app/view/home/home-view.js'] || window.HomeView;
+var TangramView = gi2705['/www/js/app/view/tangram/tangram-view.js'] || window.TangramView;
+var SectionsView = gi2705['/www/js/app/view/sections/sections-view.js'] || window.SectionsView;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	router,
@@ -11826,20 +12035,29 @@ router.subscribe('route-to-popup', router.routeToPopup);
 router.subscribe('router-hide-popup', router.hidePopup);
 router.subscribe('navigate', router.navigate);
 
-gi6206['/www/js/app/router/router.js'] = router;
+router.on('route', function (route, data) {
+	router.publish('route', route, data);
+});
+
+// TODO: remove it from CORE
+router.subscribe('tangram-view', function (data) {
+	new TangramView(data);
+});
+
+gi2705['/www/js/app/router/router.js'] = router;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
-var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var lang = gi6206['/www/js/services/lang.js'] || window.lang;
-var info = gi6206['/www/js/services/info.js'] || window.info;
-var device = gi6206['/www/js/services/device.js'] || window.device;
-var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var $ = gi2705['/www/js/lib/jbone.js'] || window.$;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var lang = gi2705['/www/js/services/lang.js'] || window.lang;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+var device = gi2705['/www/js/services/device.js'] || window.device;
+var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	HintView,
@@ -12243,19 +12461,19 @@ mediator.installTo(hintMaster);
 
 hintMaster.subscribe('showHint', hintMaster.showHint);
 
-gi6206['/www/js/app/view/core/hint.js'] = hintMaster;
+gi2705['/www/js/app/view/core/hint.js'] = hintMaster;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
-var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var sm = gi6206['/www/js/sound/sound-master.js'] || window.sm;
-var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
-var info = gi6206['/www/js/services/info.js'] || window.info;
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var $ = gi2705['/www/js/lib/jbone.js'] || window.$;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var sm = gi2705['/www/js/sound/sound-master.js'] || window.sm;
+var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
 
 var win = window,
 	PopupView,
@@ -12273,7 +12491,12 @@ PopupView = BaseView.extend({
 		popupContainer: '.js-popup-container'
 	},
 
-	initialize: function (data) { // timeout, cssClass, from, data {text, header ...}, append$el, sound, onShow {context, fn}, onHide {context, fn}
+	initialize: function (data) {
+
+	// timeout, cssClass, from,
+	// data {text, header ...},
+	// sound,
+	// onShow {context, fn}, onHide {context, fn}
 
 		var view = this,
 			popupUrl = view.popupUrl,
@@ -12360,10 +12583,10 @@ PopupView = BaseView.extend({
 	render: function () {
 
 		var view = this,
-			append$el = view.get('append$el'),
+			//append$el = view.get('append$el'),
 			data = view.get('data') || {},
 			sound = view.get('sound'),
-			$content = $(tm.get( [view.get('name')](data) )),
+			$content = $(tm.get(view.get('name'))(data)),
 			$container = view.$el.find(view.selectors.popupContainer),
 			onShow = view.get('onShow'),
 			context;
@@ -12390,7 +12613,8 @@ PopupView = BaseView.extend({
 		view.showOutAnimation().then(function () {
 
 			var onHide = view.get('onHide'),
-				context;
+				context,
+				deferred = view.get('deferred');
 
 			if (onHide) {
 				context = onHide.context || view;
@@ -12399,7 +12623,7 @@ PopupView = BaseView.extend({
 
 			BaseView.prototype.hide.call(view);
 
-			view.get('deferred').resolve();
+			deferred.resolve();
 
 		});
 
@@ -12438,46 +12662,46 @@ popupMaster = {
 
 mediator.installTo(popupMaster);
 
-popupMaster.subscribe('showPopup', popupMaster.showPopup);
+popupMaster.subscribe('show-popup', popupMaster.showPopup);
 
-gi6206['/www/js/app/view/core/popup.js'] = popupMaster;
+gi2705['/www/js/app/view/core/popup.js'] = popupMaster;
 }());
 (function () {
 'use strict';
 /*global window */
 
-var log = gi6206['/www/js/services/log.js'] || window.log;
+var log = gi2705['/www/js/services/log.js'] || window.log;
 
-var mediator = gi6206['/www/js/services/mediator.js'] || window.mediator;
+var mediator = gi2705['/www/js/services/mediator.js'] || window.mediator;
 
 // init all librares
-var polyfillClassList = gi6206['/www/js/lib/polyfill-class-list.js'] || window.polyfillClassList;
-var shim = gi6206['/www/js/lib/shim.js'] || window.shim;
-var shimES5 = gi6206['/www/js/lib/shim-es5.js'] || window.shimES5;
-var shamES5 = gi6206['/www/js/lib/sham-es5.js'] || window.shamES5;
-var _ = gi6206['/www/js/lib/lodash.js'] || window._;
-var $ = gi6206['/www/js/lib/jbone.js'] || window.$;
-var Deferred = gi6206['/www/js/lib/deferred.js'] || window.Deferred;
-var Backbone = gi6206['/www/js/lib/backbone.js'] || window.Backbone;
-var fastclick = gi6206['/www/js/lib/fastclick.js'] || window.fastclick;
-var doT = gi6206['/www/js/lib/dot.js'] || window.doT;
+var polyfillClassList = gi2705['/www/js/lib/polyfill-class-list.js'] || window.polyfillClassList;
+var shim = gi2705['/www/js/lib/shim.js'] || window.shim;
+var shimES5 = gi2705['/www/js/lib/shim-es5.js'] || window.shimES5;
+var shamES5 = gi2705['/www/js/lib/sham-es5.js'] || window.shamES5;
+var _ = gi2705['/www/js/lib/lodash.js'] || window._;
+var $ = gi2705['/www/js/lib/jbone.js'] || window.$;
+var Deferred = gi2705['/www/js/lib/deferred.js'] || window.Deferred;
+var Backbone = gi2705['/www/js/lib/backbone.js'] || window.Backbone;
+var fastclick = gi2705['/www/js/lib/fastclick.js'] || window.fastclick;
+var doT = gi2705['/www/js/lib/dot.js'] || window.doT;
 
 // init all services
-var info = gi6206['/www/js/services/info.js'] || window.info;
-var device = gi6206['/www/js/services/device.js'] || window.device;
-var androidAds = gi6206['/www/js/services/android-ads.js'] || window.androidAds;
-var lang = gi6206['/www/js/services/lang.js'] || window.lang;
-var tm = gi6206['/www/js/services/template-master.js'] || window.tm;
-var util = gi6206['/www/js/services/util.js'] || window.util;
+var info = gi2705['/www/js/services/info.js'] || window.info;
+var device = gi2705['/www/js/services/device.js'] || window.device;
+var androidAds = gi2705['/www/js/services/android-ads.js'] || window.androidAds;
+var lang = gi2705['/www/js/services/lang.js'] || window.lang;
+var tm = gi2705['/www/js/services/template-master.js'] || window.tm;
+var util = gi2705['/www/js/services/util.js'] || window.util;
 
 // init sound players
-var sm = gi6206['/www/js/sound/sound-master.js'] || window.sm;
+var sm = gi2705['/www/js/sound/sound-master.js'] || window.sm;
 
-var router = gi6206['/www/js/app/router/router.js'] || window.router;
+var router = gi2705['/www/js/app/router/router.js'] || window.router;
 
-var BaseView = gi6206['/www/js/app/view/core/base.js'] || window.BaseView;
-var hintMaster = gi6206['/www/js/app/view/core/hint.js'] || window.hintMaster;
-var popupMaster = gi6206['/www/js/app/view/core/popup.js'] || window.popupMaster;
+var BaseView = gi2705['/www/js/app/view/core/base.js'] || window.BaseView;
+var hintMaster = gi2705['/www/js/app/view/core/hint.js'] || window.hintMaster;
+var popupMaster = gi2705['/www/js/app/view/core/popup.js'] || window.popupMaster;
 
 // todo: - test - enable fast click
 new FastClick(window.document.body); // test it decide
