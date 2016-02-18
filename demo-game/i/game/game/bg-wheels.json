@@ -1,0 +1,52 @@
+{
+  "frames": {
+
+    "wheels-normal-bg-x3": {
+      "frame": { "x": 0, "y": 136, "w": 125, "h": 210 },
+      "rotated": false, "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 125, "h": 210 },
+      "sourceSize": { "w": 125, "h": 210 }
+    },
+
+    "wheels-normal-bg-x4": {
+      "frame": { "x": 126, "y": 103, "w": 125, "h": 275 },
+      "rotated": false, "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 125, "h": 275 },
+      "sourceSize": { "w": 125, "h": 275 }
+    },
+
+    "wheels-normal-bg-x5": {
+      "frame": { "x": 254 , "y": 68, "w": 125, "h": 345 },
+      "rotated": false, "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 125, "h": 345 },
+      "sourceSize": { "w": 125, "h": 345 }
+    },
+
+    "wheels-normal-bg-x6": {
+      "frame": { "x": 377, "y": 34, "w": 125, "h": 410 },
+      "rotated": false, "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 125, "h": 410 },
+      "sourceSize": { "w": 125, "h": 410 }
+    },
+
+    "wheels-normal-bg-x7": {
+      "frame": { "x": 503, "y": 0, "w": 125, "h": 481 },
+      "rotated": false, "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 125, "h": 481 },
+      "sourceSize": { "w": 125, "h": 481 }
+    }
+
+  },
+  "meta": {
+    "app": "",
+    "version": "1.0",
+    "image": "bg-wheels.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 628,
+      "h": 481
+    },
+    "scale": "1",
+    "smartupdate": ""
+  }
+}
